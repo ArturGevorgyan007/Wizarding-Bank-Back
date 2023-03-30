@@ -1,6 +1,6 @@
-﻿using DataAccess.Entities;
+using DataAccess.Entities;
 
-namespace DataAccess;
+namespace Services;
 public class UserServices
 {
     private readonly WizardingBankDbContext _context;

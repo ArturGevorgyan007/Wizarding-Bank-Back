@@ -71,3 +71,8 @@ C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\obj\Debug\net7.0\refint\API.
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\obj\Debug\net7.0\API.pdb
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\obj\Debug\net7.0\API.genruntimeconfig.cache
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\obj\Debug\net7.0\ref\API.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Humanizer.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\System.CodeDom.dll
