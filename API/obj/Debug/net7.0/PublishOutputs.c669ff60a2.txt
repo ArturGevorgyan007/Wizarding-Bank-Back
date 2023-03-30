@@ -1,0 +1,12 @@
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\BackEnd.exe
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\appsettings.Development.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\appsettings.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\BackEnd.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\BackEnd.deps.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\BackEnd.runtimeconfig.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\BackEnd.pdb
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\Microsoft.OpenApi.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\BackEnd\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
