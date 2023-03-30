@@ -1239,6 +1239,19 @@
         "runtime": {
           "bin/placeholder/DataAccess.dll": {}
         }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "DataAccess": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
+        }
       }
     }
   },
@@ -3880,6 +3893,11 @@
       "type": "project",
       "path": "../DataAccess/DataAccess.csproj",
       "msbuildProject": "../DataAccess/DataAccess.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3887,6 +3905,7 @@
       "DataAccess >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.3",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.4",
+      "Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -3924,6 +3943,9 @@
           "projectReferences": {
             "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
               "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj"
+            },
+            "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\Services\\Services.csproj"
             }
           }
         }

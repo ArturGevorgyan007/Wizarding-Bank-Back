@@ -76,3 +76,5 @@ C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Microsoft.E
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Services.dll
+C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\API\bin\Debug\net7.0\Services.pdb
