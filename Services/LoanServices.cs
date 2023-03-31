@@ -18,7 +18,6 @@ public class LoanServices
     }
     public List<Loan> GetAllBusinessLoan(Loan loan) 
     {
-        // return loan list of business id that matchs from loans table as a list of loan
         return _context.Loans.Where(x => x.BusinessId == loan.BusinessId).ToList();
     }
     public Loan PayLoan(Loan loan, int amount){

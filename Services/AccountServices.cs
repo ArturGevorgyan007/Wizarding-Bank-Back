@@ -55,14 +55,5 @@ public class AccountServices{
         
     }
 
-    // public bool deleteAccount(Account acct){
-    //     _context.Remove(acct);
-    //     if(_context.SaveChanges() > 0){
-    //         return true;
-    //     }
-
-    //     return false;
-        
-    // }
 
 }

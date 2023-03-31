@@ -36,10 +36,6 @@ namespace API.Controllers
             else return _repo.UserCards(userId);
         }
 
-        // [HttpGet]
-        // public List<Card> BusinessCards(int userId) {
-        //     return _repo.BusinessCards(userId);
-        // }
     }
 
 }

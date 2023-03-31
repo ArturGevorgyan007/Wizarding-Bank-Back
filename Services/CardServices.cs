@@ -20,7 +20,6 @@ public class CardServices
         return card;
     }
 
-    // delete a card
     public Card RemoveCard(Card card) {
         _context.Cards.Remove(card);
 

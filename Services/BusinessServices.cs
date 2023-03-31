@@ -19,7 +19,6 @@ public class BusinessServices{
     public Business CreateBusiness(Business bus){
         _context.Add(bus);
         _context.SaveChanges();
-        // _context.ChangeTracker().Clear();
         return bus;
     }
 

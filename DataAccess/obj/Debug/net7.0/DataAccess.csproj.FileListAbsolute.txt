@@ -12,3 +12,17 @@ C:\Users\Sonya\Revature\230206-NET\P3\Wizarding-Bank-Back\DataAccess\obj\Debug\n
 C:\Users\Sonya\Revature\230206-NET\P3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.pdb
 C:\Users\Sonya\Revature\230206-NET\P3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
 C:\Users\Sonya\Revature\230206-NET\P3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+C:\Users\giber\Githome\Wiz\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll

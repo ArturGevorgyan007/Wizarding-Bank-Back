@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {}
+    "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Sonya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\giber\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Sonya\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\giber\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -71,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
