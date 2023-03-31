@@ -1,11 +1,13 @@
 using DataAccess;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<UserServices>();
+builder.Services.AddScoped<Services.UserServices>();
+builder.Services.AddScoped<Services.LoanServices>();
 builder.Services.AddDbContext<WizardingBankDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WizDB")));
 
 builder.Services.AddControllers();

@@ -1,0 +1,15 @@
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\bin\Debug\net7.0\Services.deps.json
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\bin\Debug\net7.0\Services.dll
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\bin\Debug\net7.0\Services.pdb
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\bin\Debug\net7.0\DataAccess.dll
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\bin\Debug\net7.0\DataAccess.pdb
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.csproj.AssemblyReference.cache
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.AssemblyInfoInputs.cache
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.AssemblyInfo.cs
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.csproj.CoreCompileInputs.cache
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.csproj.CopyComplete
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.dll
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\refint\Services.dll
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\Services.pdb
+C:\Users\mspat\Documents\Revature\Wizarding-Bank-Back\Services\obj\Debug\net7.0\ref\Services.dll
