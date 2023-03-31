@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {}
+    "D:\\Melanie\\NetProjects\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
+    "D:\\Melanie\\NetProjects\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\Melanie\\NetProjects\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\giber\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\obj\\",
+        "projectPath": "D:\\Melanie\\NetProjects\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Melanie\\.nuget\\packages\\",
+        "outputPath": "D:\\Melanie\\NetProjects\\Wizarding-Bank-Back\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\giber\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Melanie\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -77,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
