@@ -9,7 +9,6 @@ using Services;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly UserServices _repo;
@@ -18,19 +17,54 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("user/{id:int}")] 
+        public List<User> GetById(int id){
+
+            return _repo.GetUser(id);
+
+        }
+        [HttpGet]
+        [Route("user/{usr}/{pas}")] 
+        public List<User> GetById(string usr, string pas){
+
+            return _repo.GetUser(usr,pas);
+
+        }
+
+        [HttpGet]
+        [Route("users")] 
         public List<User> GetAll() {
             return _repo.GetAll();
         }
 
 
+
         [HttpPost]
-        public List<User> Create(User a) {
-            _repo.CreateUser(a);
+        [Route("user/create")] 
+        public List<User> Create(User u) {
+            _repo.CreateUser(u);
             return _repo.GetAll();
         }
-    
-    
-    
+
+        [HttpPut]
+        [Route("user/update")]
+        public User UpdateUser(User u)
+        {
+            return _repo.UpdateUser(u);
+             
+        }
+
+        [HttpDelete]
+        [Route("user/Delete")]
+        public User DeleteUser(User u)
+        {
+            return _repo.DeleteUser(u);
+        }
+
+
+
+
+
     }
 
 
