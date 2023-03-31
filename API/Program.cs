@@ -6,8 +6,9 @@ using Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<Services.UserServices>();
-builder.Services.AddScoped<Services.LoanServices>();
+builder.Services.AddScoped<UserServices>();
+builder.Services.AddScoped<BusinessServices>();
+builder.Services.AddScoped<LoanServices>();
 builder.Services.AddDbContext<WizardingBankDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WizDB")));
 
 builder.Services.AddControllers();
