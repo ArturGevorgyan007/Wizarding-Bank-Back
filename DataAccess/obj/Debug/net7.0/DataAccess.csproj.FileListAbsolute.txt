@@ -26,3 +26,17 @@ C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\refi
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.pdb
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
 C:\Users\giber\Desktop\Back\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.dll
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.dll
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+C:\Users\boneb\Revature\230206-NET\myWork\JRiley\Project3\Wizarding-Bank-Back\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
