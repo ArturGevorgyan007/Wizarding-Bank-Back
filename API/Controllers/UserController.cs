@@ -11,9 +11,9 @@ namespace API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserServices _repo;
-        public UserController(UserServices repo) {
-            _repo = repo;
+        private readonly Services.UserServices _service;
+        public UserController(Services.UserServices service) {
+            _service = service;
         }
 
         [HttpGet]
@@ -34,12 +34,13 @@ namespace API.Controllers
         [HttpGet]
         [Route("users")] 
         public List<User> GetAll() {
-            return _repo.GetAll();
+            return _service.GetAll();
         }
 
 
 
         [HttpPost]
+
         [Route("user/create")] 
         public List<User> Create(User u) {
             _repo.CreateUser(u);
