@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JFcp0iINXwNzYZkg/gFOh5bTMGgrwRkbkaJcDn3dczN5gLkB45aV96J6eEr0E3Sjec28HoffmkFtANWC74taww==",
+  "dgSpecHash": "JaksRwrjaRYHFTaPEOJv/BaESRVqFXVuCJd/q5kfq/C3f3ogdWelfLo56UtY6J8i6FzI4WVH9j+IGNDWa/Ezcw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\Services\\Services.csproj",
+  "projectFilePath": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\giber\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\giber\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

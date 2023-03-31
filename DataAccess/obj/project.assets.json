@@ -3468,11 +3468,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+      "projectPath": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\giber\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\DataAccess\\obj\\",
+      "outputPath": "C:\\Users\\giber\\Githome\\Wiz\\Back\\Wizarding-Bank-Back\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
