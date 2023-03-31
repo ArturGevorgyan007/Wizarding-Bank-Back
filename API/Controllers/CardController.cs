@@ -30,16 +30,15 @@ namespace API.Controllers
             return _repo.RemoveCard(card);
         }
 
-        [HttpGet]
-        public List<Card> GetCards(int userId, bool isBusiness) {
-            if(isBusiness) return _repo.BusinessCards(userId);
-            else return _repo.UserCards(userId);
+        [HttpGet("User")]
+        public List<Card> GetCards(int userId) {
+            return _repo.UserCards(userId);
         }
 
-        // [HttpGet]
-        // public List<Card> BusinessCards(int userId) {
-        //     return _repo.BusinessCards(userId);
-        // }
+        [HttpGet("Business")]
+        public List<Card> BusinessCards(int userId) {
+            return _repo.BusinessCards(userId);
+        }
     }
 
 }
