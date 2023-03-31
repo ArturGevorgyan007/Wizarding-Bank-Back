@@ -1,0 +1,219 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\API\\API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\API\\API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Sonya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Sonya\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj"
+              },
+              "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "projectName": "DataAccess",
+        "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Sonya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Sonya\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Sonya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Sonya\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\Sonya\\Revature\\230206-NET\\P3\\Wizarding-Bank-Back\\DataAccess\\DataAccess.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

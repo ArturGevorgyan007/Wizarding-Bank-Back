@@ -20,14 +20,14 @@ namespace API.Controllers
         [Route("user/{id:int}")] 
         public List<User> GetById(int id){
 
-            return _repo.GetUser(id);
+            return _service.GetUser(id);
 
         }
         [HttpGet]
         [Route("user/{usr}/{pas}")] 
         public List<User> GetById(string usr, string pas){
 
-            return _repo.GetUser(usr,pas);
+            return _service.GetUser(usr,pas);
 
         }
 
@@ -43,22 +43,22 @@ namespace API.Controllers
 
         [Route("user/create")] 
         public List<User> Create(User u) {
-            _repo.CreateUser(u);
-            return _repo.GetAll();
+            _service.CreateUser(u);
+            return _service.GetAll();
         }
 
         [HttpPut]
         [Route("user/update")]
         public User UpdateUser(User u)
         {
-            return _repo.UpdateUser(u);
+            return _service.UpdateUser(u);
              
         }
         [HttpGet]
         [Route("user/wallet/update/{id:int}/{amt:int}")] 
         public User GetById(int id, int amt){
 
-            return _repo.UpdateWallet(id, amt);
+            return _service.UpdateWallet(id, amt);
 
         }
 
@@ -66,7 +66,7 @@ namespace API.Controllers
         [Route("user/Delete")]
         public User DeleteUser(User u)
         {
-            return _repo.DeleteUser(u);
+            return _service.DeleteUser(u);
         }
 
 
