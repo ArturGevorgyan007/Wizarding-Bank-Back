@@ -10,7 +10,7 @@ public class UserServices
         _context = context;
 
     }
-        public User CreateUser(User a) {
+    public User CreateUser(User a) {
         _context.Add(a);
 
         _context.SaveChanges();
