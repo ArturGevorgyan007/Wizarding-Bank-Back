@@ -22,6 +22,41 @@ public class UserServices
     return _context.Users.ToList();
     }
 
+    public List<User> GetUser(int id) {
+        return (List<User>) _context.Users.Where(w => w.Id == id).ToList();
+
+    }
+    public List<User> GetUser(string username, string password) {
+        return (List<User>) _context.Users.Where(w => w.Username == username && w.Password == password).ToList();
+
+    }
+
+     public User UpdateUser(User u) {
+        _context.Update(u);
+        _context.Users.ToList();
+        _context.SaveChanges();
+        return u;
+    }
+
+    public User DeleteUser(User u) {
+        _context.Remove(u);
+        _context.SaveChanges();
+        return u;
+    }
+
+    public User UpdateWallet(int id, int ammount)
+    {
+        var user =  _context.Users.FirstOrDefault(u => u.Id == id);
+        if (user != null){
+            user.Wallet += ammount;
+             _context.SaveChangesAsync();
+             return user;
+        }
+        return null;
+    }
+
+
+
 
 
 }
