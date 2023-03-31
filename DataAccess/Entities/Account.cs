@@ -7,7 +7,7 @@ public partial class Account
 {
     public int Id { get; set; }
 
-    public string? AccountNumber { get; set; }
+    public string AccountNumber { get; set; }
 
     public string? RoutingNumber { get; set; }
 
