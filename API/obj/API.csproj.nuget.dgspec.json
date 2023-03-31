@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\api\\API.csproj": {}
+    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\api\\API.csproj": {
+    "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\api\\API.csproj",
+        "projectUniqueName": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\api\\API.csproj",
+        "projectPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\API\\API.csproj",
         "packagesPath": "C:\\Users\\giber\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\api\\obj\\",
+        "outputPath": "C:\\Users\\giber\\Desktop\\Back\\Wizarding-Bank-Back\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

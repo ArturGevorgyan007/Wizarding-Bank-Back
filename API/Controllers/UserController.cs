@@ -53,6 +53,13 @@ namespace API.Controllers
             return _repo.UpdateUser(u);
              
         }
+        [HttpGet]
+        [Route("user/wallet/update/{id:int}/{amt:int}")] 
+        public User GetById(int id, int amt){
+
+            return _repo.UpdateWallet(id, amt);
+
+        }
 
         [HttpDelete]
         [Route("user/Delete")]

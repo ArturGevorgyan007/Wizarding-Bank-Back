@@ -30,7 +30,7 @@ public class UserServices
         return (List<User>) _context.Users.Where(w => w.Username == username && w.Password == password).ToList();
 
     }
-    
+
      public User UpdateUser(User u) {
         _context.Update(u);
         _context.Users.ToList();
@@ -43,6 +43,19 @@ public class UserServices
         _context.SaveChanges();
         return u;
     }
+
+    public User UpdateWallet(int id, int ammount)
+    {
+        var user =  _context.Users.FirstOrDefault(u => u.Id == id);
+        if (user != null){
+            user.Wallet += ammount;
+             _context.SaveChangesAsync();
+             return user;
+        }
+        return null;
+    }
+
+
 
 
 
