@@ -5,9 +5,7 @@
 
 # User-specific files
 
-**/appsettings.Development.json
-**/bin
-**/obj
+
 *.rsuser
 *.suo
 *.user
@@ -16,6 +14,7 @@
 
 **/obj
 **/bin
+**/appsettings.Development.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -482,3 +481,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
