@@ -87,7 +87,7 @@ public partial class WizardingBankDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("username");
             entity.Property(e => e.Wallet)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("wallet");
         });
 
