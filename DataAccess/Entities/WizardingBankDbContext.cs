@@ -113,7 +113,6 @@ public partial class WizardingBankDbContext : DbContext
             entity.Property(e => e.CardNumber)
                 // .HasMaxLength(200)
                 .IsUnicode(false)
-                // .IsUnique()
                 .HasColumnName("card_number");
             entity.Property(e => e.Cvv)
                 // .HasMaxLength(200)
