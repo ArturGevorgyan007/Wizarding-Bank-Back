@@ -16,6 +16,11 @@ public class TransactionServices
     {
         return _context.Transactions.ToList();
     }
+    public List<Transaction> GetTransactionsByUserId(int id)
+    {
+        return (List<Transaction>)_context.Transactions.Where(w => w.SenderId == id || w.RecipientId == id).ToList();
+    }
+
 
     public Transaction CreateTransaction(Transaction transact)
     {
