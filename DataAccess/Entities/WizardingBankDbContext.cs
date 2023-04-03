@@ -46,13 +46,13 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("routing_number");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__accounts__busine__656C112C");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__accounts__busine__656C112C");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__accounts__user_i__6477ECF3");
+            // entity.HasOne(d => d.User).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.UserId)
+            //     .HasConstraintName("FK__accounts__user_i__6477ECF3");
         });
 
         modelBuilder.Entity<Business>(entity =>

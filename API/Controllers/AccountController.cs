@@ -53,8 +53,8 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int uId){
-            return _service.deleteAccount(acctId, uId);
+        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int Id){
+            return _service.deleteAccount(acctId, Id);
         }
 
 
