@@ -7,7 +7,7 @@ public partial class Card
 {
     public int Id { get; set; }
 
-    public string? CardNumber { get; set; }
+    public int CardNumber { get; set; }
 
     public int? UserId { get; set; }
 
@@ -15,13 +15,13 @@ public partial class Card
 
     public DateTime? ExpiryDate { get; set; }
 
-    public string? Cvv { get; set; }
+    public int Cvv { get; set; }
 
     public decimal? Balance { get; set; }
 
     public virtual Business? Business { get; set; }
 
-    public virtual ICollection<Transaction> Transactions { get; } = new List<Transaction>();
+    // public virtual ICollection<Transaction> Transactions { get; } = new List<Transaction>();
 
-    public virtual User? User { get; set; }
+    // public virtual User? User { get; set; }
 }
