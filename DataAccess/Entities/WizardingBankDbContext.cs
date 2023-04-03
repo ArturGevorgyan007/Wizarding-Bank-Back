@@ -33,7 +33,7 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AccountNumber)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("account_number");
             entity.Property(e => e.Balance)
@@ -41,18 +41,18 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.RoutingNumber)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("routing_number");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__accounts__busine__656C112C");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__accounts__busine__656C112C");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__accounts__user_i__6477ECF3");
+            // entity.HasOne(d => d.User).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.UserId)
+            //     .HasConstraintName("FK__accounts__user_i__6477ECF3");
         });
 
         modelBuilder.Entity<Business>(entity =>
@@ -67,31 +67,31 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("address");
             entity.Property(e => e.Bin)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("bin");
             entity.Property(e => e.BusinessName)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("business_name");
             entity.Property(e => e.BusinessType)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("business_type");
             entity.Property(e => e.Email)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("email");
             entity.Property(e => e.Password)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Username)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("username");
             entity.Property(e => e.Wallet)
@@ -111,25 +111,17 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.CardNumber)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("card_number");
             entity.Property(e => e.Cvv)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("cvv");
             entity.Property(e => e.ExpiryDate)
                 .HasColumnType("datetime")
                 .HasColumnName("expiry_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.Business).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__cards__business___693CA210");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__cards__user_id__68487DD7");
         });
 
         modelBuilder.Entity<Loan>(entity =>
@@ -153,9 +145,6 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("loan_paid");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Loans)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__loans__business___6C190EBB");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
@@ -174,7 +163,7 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("description");
             entity.Property(e => e.LoanId).HasColumnName("loan_id");
@@ -204,23 +193,23 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("address");
             entity.Property(e => e.Email)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("email");
             entity.Property(e => e.FullName)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("full_name");
             entity.Property(e => e.Password)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Username)
-                .HasMaxLength(1)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("username");
             entity.Property(e => e.Wallet)
