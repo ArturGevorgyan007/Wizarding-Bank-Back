@@ -45,14 +45,6 @@ public partial class WizardingBankDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("routing_number");
             entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            // entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
-            //     .HasForeignKey(d => d.BusinessId)
-            //     .HasConstraintName("FK__accounts__busine__656C112C");
-
-            // entity.HasOne(d => d.User).WithMany(p => p.Accounts)
-            //     .HasForeignKey(d => d.UserId)
-            //     .HasConstraintName("FK__accounts__user_i__6477ECF3");
         });
 
         modelBuilder.Entity<Business>(entity =>
@@ -95,7 +87,7 @@ public partial class WizardingBankDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("username");
             entity.Property(e => e.Wallet)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("wallet");
         });
 
@@ -107,15 +99,15 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Balance)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.CardNumber)
-                .HasMaxLength(200)
+                .HasColumnType("bigint")
                 .IsUnicode(false)
                 .HasColumnName("card_number");
             entity.Property(e => e.Cvv)
-                .HasMaxLength(200)
+                .HasColumnType("int")
                 .IsUnicode(false)
                 .HasColumnName("cvv");
             entity.Property(e => e.ExpiryDate)
