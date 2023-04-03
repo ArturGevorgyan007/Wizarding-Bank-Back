@@ -56,8 +56,8 @@ namespace API.Controllers
 
         ///We need to save deleted transactions onto new table before delete account
         [HttpDelete]
-        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int uId){
-            return _service.deleteAccount(acctId, uId);
+        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int Id){
+            return _service.deleteAccount(acctId, Id);
         }
         // public bool deleteAccount([FromBody] Account acct){
         //     return _service.deleteAccount(acct);
