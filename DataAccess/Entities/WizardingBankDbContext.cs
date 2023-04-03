@@ -132,14 +132,14 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("amount");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.DateLoaned)
                 .HasColumnType("datetime")
                 .HasColumnName("date_loaned");
             entity.Property(e => e.InterestRate)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 1)")
                 .HasColumnName("interest_rate");
             entity.Property(e => e.LoanPaid)
                 .HasColumnType("datetime")
@@ -156,9 +156,10 @@ public partial class WizardingBankDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.Amount)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("amount");
-            entity.Property(e => e.CardId).HasColumnName("card_id");
+            entity.Property(e => e.CardId)
+                .HasColumnName("card_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
@@ -166,7 +167,14 @@ public partial class WizardingBankDbContext : DbContext
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("description");
-            entity.Property(e => e.LoanId).HasColumnName("loan_id");
+            entity.Property(e => e.RecipientId)
+                .HasColumnType("int")
+                .HasColumnName("recipient_id");
+            entity.Property(e => e.Status)
+                .HasColumnName("status");
+            entity.Property(e => e.SenderId)
+                .HasColumnType("int")
+                .HasColumnName("sender_id");
 
             // entity.HasOne(d => d.Account).WithMany(p => p.Transactions)
             //     .HasForeignKey(d => d.AccountId)
