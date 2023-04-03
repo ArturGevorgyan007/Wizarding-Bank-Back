@@ -7,7 +7,7 @@ public partial class Card
 {
     public int Id { get; set; }
 
-    public int CardNumber { get; set; }
+    public long CardNumber { get; set; }
 
     public int? UserId { get; set; }
 
