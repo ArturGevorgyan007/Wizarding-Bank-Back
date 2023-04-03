@@ -7,7 +7,7 @@ public partial class Account
 {
     public int Id { get; set; }
 
-    public string AccountNumber { get; set; }
+    public string? AccountNumber { get; set; }
 
     public string? RoutingNumber { get; set; }
 
@@ -17,9 +17,7 @@ public partial class Account
 
     public decimal? Balance { get; set; }
 
-    // public virtual Business? Business { get; set; }
+    public virtual Business? Business { get; set; }
 
-    public virtual ICollection<Transaction> Transactions { get; } = new List<Transaction>();
-
-    // public virtual User? User { get; set; }
+    public virtual User? User { get; set; }
 }

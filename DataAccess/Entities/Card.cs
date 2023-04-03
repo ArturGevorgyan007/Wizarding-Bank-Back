@@ -19,9 +19,7 @@ public partial class Card
 
     public decimal? Balance { get; set; }
 
-    // public virtual Business? Business { get; set; }
+    public virtual Business? Business { get; set; }
 
-    public virtual ICollection<Transaction> Transactions { get; } = new List<Transaction>();
-
-    // public virtual User? User { get; set; }
+    public virtual User? User { get; set; }
 }

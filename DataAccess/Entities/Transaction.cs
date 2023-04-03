@@ -13,15 +13,13 @@ public partial class Transaction
 
     public int? AccountId { get; set; }
 
-    public int? LoanId { get; set; }
-
     public DateTime? CreatedAt { get; set; }
 
     public string? Description { get; set; }
 
-    // public virtual Account? Account { get; set; }
+    public int? RecipientId { get; set; }
 
-    // public virtual Card? Card { get; set; }
+    public int? Status { get; set; }
 
-    // public virtual Loan? Loan { get; set; }
+    public int? SenderId { get; set; }
 }

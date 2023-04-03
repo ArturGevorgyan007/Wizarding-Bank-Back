@@ -19,7 +19,7 @@ public class TransactionServices
 
     public Transaction CreateTransaction(Transaction transact)
     {
-        _context.Add(transact);
+        _context.Transactions.Add(transact);
         _context.SaveChanges();
 
         return transact;
@@ -27,7 +27,7 @@ public class TransactionServices
 
     public Transaction UpdateTransaction(Transaction transact)
     {
-        _context.Update(transact);
+        _context.Transactions.Update(transact);
         _context.Transactions.ToList();
         _context.SaveChanges();
 
@@ -36,7 +36,7 @@ public class TransactionServices
 
     public Transaction DeleteTransaction(Transaction transact)
     {
-        _context.Remove(transact);
+        _context.Transactions.Remove(transact);
         _context.SaveChanges();
 
         return transact;
