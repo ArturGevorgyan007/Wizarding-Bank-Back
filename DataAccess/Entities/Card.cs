@@ -7,7 +7,7 @@ public partial class Card
 {
     public int Id { get; set; }
 
-    public string? CardNumber { get; set; }
+    public int CardNumber { get; set; }
 
     public int? UserId { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Card
 
     public DateTime? ExpiryDate { get; set; }
 
-    public string? Cvv { get; set; }
+    public int Cvv { get; set; }
 
     public decimal? Balance { get; set; }
 

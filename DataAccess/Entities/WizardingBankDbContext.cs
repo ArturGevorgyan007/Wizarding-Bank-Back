@@ -107,15 +107,15 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Balance)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.CardNumber)
-                .HasMaxLength(200)
+                .HasColumnType("bigint")
                 .IsUnicode(false)
                 .HasColumnName("card_number");
             entity.Property(e => e.Cvv)
-                .HasMaxLength(200)
+                .HasColumnType("int")
                 .IsUnicode(false)
                 .HasColumnName("cvv");
             entity.Property(e => e.ExpiryDate)
