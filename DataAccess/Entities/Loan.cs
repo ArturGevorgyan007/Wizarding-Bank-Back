@@ -17,7 +17,7 @@ public partial class Loan
 
     public DateTime? LoanPaid { get; set; }
 
-    public virtual Business? Business { get; set; }
+    // public virtual Business? Business { get; set; }
 
     public virtual ICollection<Transaction> Transactions { get; } = new List<Transaction>();
 }

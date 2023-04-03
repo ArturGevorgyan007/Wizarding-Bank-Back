@@ -39,8 +39,8 @@ public class AccountServices{
         return acct;
     }
 
-    public bool deleteAccount(int acctId, int uId){
-        List<Account> acctl = getAccounts(uId);
+    public bool deleteAccount(int acctId, int Id){
+        List<Account> acctl = getAccounts(Id);
         Account dacct = new();
         foreach(Account a in acctl){
             if(a.Id == acctId){ 
@@ -55,14 +55,5 @@ public class AccountServices{
         
     }
 
-    // public bool deleteAccount(Account acct){
-    //     _context.Remove(acct);
-    //     if(_context.SaveChanges() > 0){
-    //         return true;
-    //     }
-
-    //     return false;
-        
-    // }
 
 }

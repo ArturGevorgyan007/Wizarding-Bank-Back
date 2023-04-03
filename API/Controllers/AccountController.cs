@@ -28,20 +28,18 @@ namespace API.Controllers
             return _service.getAccounts(id);
         }
 
-        ///Should we change the routing and account num to int? OR is it string bc we are not modifying these numbers at all?
-        /// Maybe we can have business id and uid start with specific two first numbers to tell them apart
         [HttpPost]
         public Account createAccount([FromQuery] string routingNumber,[FromQuery] string accountNumber,[FromQuery] int uid, [FromQuery] int bid,[FromQuery] decimal balance){
             Account acct = new();
             acct.Balance = balance; acct.RoutingNumber = routingNumber; acct.AccountNumber = accountNumber;
-            if(uid != 0) { acct.UserId = uid;} 
+            if(uid != 0) { acct.UserId = uid; acct.BusinessId = 0;} 
             else {
                 acct.BusinessId = bid;
+                acct.UserId = 0;
             }
             return _service.createAccount(acct);
         }
 
-        ///we  have to make accountNumber unique
         [HttpPut]
         public Account updateAccount([FromQuery] string routingNumber,[FromQuery] string accountNumber,[FromQuery] int uid, [FromQuery] int bid,[FromQuery] decimal balance){
             Account acct = new();
@@ -54,14 +52,10 @@ namespace API.Controllers
             return _service.updateAccount(acct);
         }
 
-        ///We need to save deleted transactions onto new table before delete account
         [HttpDelete]
-        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int uId){
-            return _service.deleteAccount(acctId, uId);
+        public bool deleteAccount([FromQuery] int acctId, [FromQuery] int Id){
+            return _service.deleteAccount(acctId, Id);
         }
-        // public bool deleteAccount([FromBody] Account acct){
-        //     return _service.deleteAccount(acct);
-        // }
 
 
     }
