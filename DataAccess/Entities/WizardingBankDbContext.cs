@@ -113,7 +113,7 @@ public partial class WizardingBankDbContext : DbContext
             entity.Property(e => e.CardNumber)
                 // .HasMaxLength(200)
                 .IsUnicode(false)
-                .IsUnique(true)
+                // .IsUnique()
                 .HasColumnName("card_number");
             entity.Property(e => e.Cvv)
                 // .HasMaxLength(200)
@@ -124,13 +124,13 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("expiry_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__cards__business___693CA210");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Cards)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__cards__business___693CA210");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__cards__user_id__68487DD7");
+            // entity.HasOne(d => d.User).WithMany(p => p.Cards)
+            //     .HasForeignKey(d => d.UserId)
+            //     .HasConstraintName("FK__cards__user_id__68487DD7");
         });
 
         modelBuilder.Entity<Loan>(entity =>
