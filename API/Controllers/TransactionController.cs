@@ -28,13 +28,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("Transaction/{id:int}")]
+        [Route("{id:int}")]
         public List<Transaction> GetTransactionsByID(int id)
         {
             return _services.GetTransactionsByUserId(id);
         }
         [HttpGet]
-        [Route("Transaction/Number/{id:int}")]
+        [Route("Number/{id:int}")]
         public List<Transaction> GetLimitedTransactionsByID(int id)
         {
             return _services.GetLimitedTransactionsByUserId(id);
