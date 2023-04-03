@@ -168,17 +168,17 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("description");
             entity.Property(e => e.LoanId).HasColumnName("loan_id");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__transacti__accou__6FE99F9F");
+            // entity.HasOne(d => d.Account).WithMany(p => p.Transactions)
+            //     .HasForeignKey(d => d.AccountId)
+            //     .HasConstraintName("FK__transacti__accou__6FE99F9F");
 
-            entity.HasOne(d => d.Card).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.CardId)
-                .HasConstraintName("FK__transacti__card___6EF57B66");
+            // entity.HasOne(d => d.Card).WithMany(p => p.Transactions)
+            //     .HasForeignKey(d => d.CardId)
+            //     .HasConstraintName("FK__transacti__card___6EF57B66");
 
-            entity.HasOne(d => d.Loan).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.LoanId)
-                .HasConstraintName("FK__transacti__loan___70DDC3D8");
+            // entity.HasOne(d => d.Loan).WithMany(p => p.Transactions)
+            //     .HasForeignKey(d => d.LoanId)
+            //     .HasConstraintName("FK__transacti__loan___70DDC3D8");
         });
 
         modelBuilder.Entity<User>(entity =>

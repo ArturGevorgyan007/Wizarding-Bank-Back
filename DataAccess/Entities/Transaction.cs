@@ -19,9 +19,9 @@ public partial class Transaction
 
     public string? Description { get; set; }
 
-    public virtual Account? Account { get; set; }
+    // public virtual Account? Account { get; set; }
 
-    public virtual Card? Card { get; set; }
+    // public virtual Card? Card { get; set; }
 
-    public virtual Loan? Loan { get; set; }
+    // public virtual Loan? Loan { get; set; }
 }
