@@ -33,6 +33,12 @@ namespace API.Controllers
         {
             return _services.GetTransactionsByUserId(id);
         }
+        [HttpGet]
+        [Route("Transaction/Number/{id:int}")]
+        public List<Transaction> GetLimitedTransactionsByID(int id)
+        {
+            return _services.GetLimitedTransactionsByUserId(id);
+        }
 
         [HttpPost]
         public List<Transaction> CreateTransaction(Transaction transact)

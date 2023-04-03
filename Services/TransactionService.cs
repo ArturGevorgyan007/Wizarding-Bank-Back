@@ -20,6 +20,10 @@ public class TransactionServices
     {
         return (List<Transaction>)_context.Transactions.Where(w => w.SenderId == id || w.RecipientId == id).OrderByDescending(w => w.CreatedAt).ToList();
     }
+    public List<Transaction> GetLimitedTransactionsByUserId(int id)
+    {
+        return (List<Transaction>)_context.Transactions.Where(w => w.SenderId == id || w.RecipientId == id).OrderByDescending(w => w.CreatedAt).Take(10).ToList();
+    }
 
 
     public Transaction CreateTransaction(Transaction transact)
