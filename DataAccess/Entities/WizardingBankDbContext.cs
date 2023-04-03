@@ -27,24 +27,34 @@ public partial class WizardingBankDbContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__accounts__3213E83FDE898024");
+            entity.HasKey(e => e.Id).HasName("PK__accounts__3213E83F4B9519F7");
 
             entity.ToTable("accounts");
 
+            entity.HasIndex(e => e.AccountNumber, "UQ__accounts__AF91A6AD66153070").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AccountNumber)
-                .HasMaxLength(200)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("account_number");
             entity.Property(e => e.Balance)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
             entity.Property(e => e.RoutingNumber)
-                .HasMaxLength(200)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("routing_number");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
+                .HasForeignKey(d => d.BusinessId)
+                .HasConstraintName("FK__accounts__busine__1CBC4616");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Accounts)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__accounts__user_i__1BC821DD");
         });
 
         modelBuilder.Entity<Business>(entity =>
@@ -53,9 +63,13 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.ToTable("business");
 
-            entity.HasIndex(e => e.Email, "UQ__business__AB6E616497C24BE0").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__business__AB6E616497C24BE0")
+                .IsUnique()
+                .HasFilter("([email] IS NOT NULL)");
 
-            entity.HasIndex(e => e.Username, "UQ__business__F3DBC57216CEA674").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__business__F3DBC57216CEA674")
+                .IsUnique()
+                .HasFilter("([username] IS NOT NULL)");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
@@ -97,23 +111,31 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.ToTable("cards");
 
+            entity.HasIndex(e => e.BusinessId, "IX_cards_business_id");
+
+            entity.HasIndex(e => e.UserId, "IX_cards_user_id");
+
+            entity.HasIndex(e => e.CardNumber, "UQ__cards__1E6E0AF423FEDC1D").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Balance)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("balance");
             entity.Property(e => e.BusinessId).HasColumnName("business_id");
-            entity.Property(e => e.CardNumber)
-                .HasColumnType("bigint")
-                .IsUnicode(false)
-                .HasColumnName("card_number");
-            entity.Property(e => e.Cvv)
-                .HasColumnType("int")
-                .IsUnicode(false)
-                .HasColumnName("cvv");
+            entity.Property(e => e.CardNumber).HasColumnName("card_number");
+            entity.Property(e => e.Cvv).HasColumnName("cvv");
             entity.Property(e => e.ExpiryDate)
                 .HasColumnType("datetime")
                 .HasColumnName("expiry_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Business).WithMany(p => p.Cards)
+                .HasForeignKey(d => d.BusinessId)
+                .HasConstraintName("FK__cards__business___693CA210");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Cards)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__cards__user_id__68487DD7");
         });
 
         modelBuilder.Entity<Loan>(entity =>
@@ -121,6 +143,8 @@ public partial class WizardingBankDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__loans__3213E83F8C2F8E66");
 
             entity.ToTable("loans");
+
+            entity.HasIndex(e => e.BusinessId, "IX_loans_business_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount)
@@ -131,27 +155,30 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("date_loaned");
             entity.Property(e => e.InterestRate)
-                .HasColumnType("decimal(18, 1)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("interest_rate");
             entity.Property(e => e.LoanPaid)
                 .HasColumnType("datetime")
                 .HasColumnName("loan_paid");
 
+            entity.HasOne(d => d.Business).WithMany(p => p.Loans)
+                .HasForeignKey(d => d.BusinessId)
+                .HasConstraintName("FK__loans__business___6C190EBB");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__transact__3213E83FC82F76D6");
+            entity
+                .HasKey(e => e.Id).HasName("PK__transact__3213E8382286");
+
 
             entity.ToTable("transactions");
 
-            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.Amount)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("amount");
-            entity.Property(e => e.CardId)
-                .HasColumnName("card_id");
+            entity.Property(e => e.CardId).HasColumnName("card_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
@@ -159,26 +186,12 @@ public partial class WizardingBankDbContext : DbContext
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("description");
-            entity.Property(e => e.RecipientId)
-                .HasColumnType("int")
-                .HasColumnName("recipient_id");
-            entity.Property(e => e.Status)
-                .HasColumnName("status");
-            entity.Property(e => e.SenderId)
-                .HasColumnType("int")
-                .HasColumnName("sender_id");
-
-            // entity.HasOne(d => d.Account).WithMany(p => p.Transactions)
-            //     .HasForeignKey(d => d.AccountId)
-            //     .HasConstraintName("FK__transacti__accou__6FE99F9F");
-
-            // entity.HasOne(d => d.Card).WithMany(p => p.Transactions)
-            //     .HasForeignKey(d => d.CardId)
-            //     .HasConstraintName("FK__transacti__card___6EF57B66");
-
-            // entity.HasOne(d => d.Loan).WithMany(p => p.Transactions)
-            //     .HasForeignKey(d => d.LoanId)
-            //     .HasConstraintName("FK__transacti__loan___70DDC3D8");
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+            entity.Property(e => e.RecipientId).HasColumnName("recipient_id");
+            entity.Property(e => e.SenderId).HasColumnName("sender_id");
+            entity.Property(e => e.Status).HasColumnName("status");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -189,7 +202,9 @@ public partial class WizardingBankDbContext : DbContext
 
             entity.HasIndex(e => e.Email, "UQ__users__AB6E6164E25936DC").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__users__F3DBC57215D5AFFC").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__users__F3DBC57215D5AFFC")
+                .IsUnique()
+                .HasFilter("([username] IS NOT NULL)");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
@@ -213,7 +228,7 @@ public partial class WizardingBankDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("username");
             entity.Property(e => e.Wallet)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("wallet");
         });
 
