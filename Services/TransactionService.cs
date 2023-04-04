@@ -20,13 +20,36 @@ public class TransactionServices
     {
         return (List<Transaction>)_context.Transactions.Where(w => w.SenderId == id || w.RecipientId == id).OrderByDescending(w => w.CreatedAt).ToList();
     }
-    public List<Transaction> GetLimitedTransactionsByUserId(int id)
+    public List<Object> GetLimitedTransactionsByUserId(int id)
     {
-        return (List<Transaction>)_context.Transactions.Where(w => w.SenderId == id || w.RecipientId == id).OrderByDescending(w => w.CreatedAt).Take(10).ToList();
+        List<Object> transactions = new List<Object>();
+
+        var result = from transaction in _context.Transactions
+                     join sender in _context.Users on transaction.SenderId equals sender.Id into senderGroup
+                     from sender in senderGroup.DefaultIfEmpty()
+                     join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
+                     from recipient in recipientGroup.DefaultIfEmpty()
+                     where transaction.RecipientId == id || transaction.SenderId == id
+                     orderby transaction.CreatedAt descending
+                     select new
+                     {
+                         transaction.Id,
+                         transaction.Amount,
+                         transaction.CreatedAt,
+                         SenderEmail = sender.Email,
+                         RecipientEmail = recipient.Email,
+                         transaction.Description
+                     };
+        var results = result.Take(10).ToList();
+        foreach (Object obj in results)
+        {
+            transactions.Add(obj);
+            Console.WriteLine(obj);
+        }
+        return transactions;
     }
     public List<Object> GetTransactionsWithEmails(int id)
     {
-        var userId = 1;
 
         // Type transac = {
         //     int id
@@ -38,7 +61,8 @@ public class TransactionServices
                      from sender in senderGroup.DefaultIfEmpty()
                      join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
                      from recipient in recipientGroup.DefaultIfEmpty()
-                     where transaction.RecipientId == userId || transaction.SenderId == userId
+                     where transaction.RecipientId == id || transaction.SenderId == id
+                     orderby transaction.CreatedAt
                      select new
                      {
                          transaction.Id,
