@@ -29,9 +29,9 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("transaction/{id:int}")]
-        public List<Transaction> GetTransactionsByID(int id)
+        public IActionResult GetTransactionsByID(int id)
         {
-            return _services.GetTransactionsByUserId(id);
+            return Ok(_services.GetTransactionsByUserId(id));
         }
         [HttpGet]
         [Route("transaction/number/{id:int}")]
