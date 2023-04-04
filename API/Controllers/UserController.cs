@@ -26,12 +26,13 @@ namespace API.Controllers
 
         }
         [HttpGet]
-        [Route("user/byEmail/{email:string}")]
-        public int GetByEmail(string email)
+        [Route("user/byEmail/{email}")]
+        public IActionResult GetByEmail(string email)
         {
 
+            Console.WriteLine("Working here");
             List<User> user = _service.GetUser(email);
-            return user[0].Id;
+            return Ok(user[0].Id);
 
         }
         [HttpGet]
