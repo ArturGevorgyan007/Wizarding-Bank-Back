@@ -31,7 +31,7 @@ namespace API.Controllers
         [Route("transaction/{id:int}")]
         public IActionResult GetTransactionsByID(int id)
         {
-            return Ok(_services.GetTransactionsByUserId(id));
+            return Ok(_services.GetTransactionsWithEmails(id));
         }
         [HttpGet]
         [Route("transaction/number/{id:int}")]
