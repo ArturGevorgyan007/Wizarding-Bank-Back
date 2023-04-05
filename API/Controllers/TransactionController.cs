@@ -27,6 +27,19 @@ namespace API.Controllers
             return _services.GetAllTransactions();
         }
 
+        [HttpGet]
+        [Route("transaction/{id:int}")]
+        public IActionResult GetTransactionsByID(int id)
+        {
+            return Ok(_services.GetTransactionsWithEmails(id));
+        }
+        [HttpGet]
+        [Route("transaction/number/{id:int}")]
+        public IActionResult GetLimitedTransactionsByID(int id)
+        {
+            return Ok(_services.GetLimitedTransactionsByUserId(id));
+        }
+
         [HttpPost]
         public List<Transaction> CreateTransaction(Transaction transact)
         {

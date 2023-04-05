@@ -12,28 +12,42 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly Services.UserServices _service;
-        public UserController(Services.UserServices service) {
+        public UserController(Services.UserServices service)
+        {
             _service = service;
         }
 
         [HttpGet]
-        [Route("user/{id:int}")] 
-        public List<User> GetById(int id){
+        [Route("user/{id:int}")]
+        public List<User> GetById(int id)
+        {
 
             return _service.GetUser(id);
 
         }
         [HttpGet]
-        [Route("user/{usr}/{pas}")] 
-        public List<User> GetById(string usr, string pas){
+        [Route("user/byEmail/{email}")]
+        public IActionResult GetByEmail(string email)
+        {
 
-            return _service.GetUser(usr,pas);
+            Console.WriteLine("Working here");
+            List<User> user = _service.GetUser(email);
+            return Ok(user[0].Id);
+
+        }
+        [HttpGet]
+        [Route("user/{usr}/{pas}")]
+        public List<User> GetById(string usr, string pas)
+        {
+
+            return _service.GetUser(usr, pas);
 
         }
 
         [HttpGet]
-        [Route("users")] 
-        public List<User> GetAll() {
+        [Route("users")]
+        public List<User> GetAll()
+        {
             return _service.GetAll();
         }
 
@@ -41,8 +55,9 @@ namespace API.Controllers
 
         [HttpPost]
 
-        [Route("user/create")] 
-        public List<User> Create(User u) {
+        [Route("user/create")]
+        public List<User> Create(User u)
+        {
             _service.CreateUser(u);
             return _service.GetAll();
         }
@@ -52,11 +67,12 @@ namespace API.Controllers
         public User UpdateUser(User u)
         {
             return _service.UpdateUser(u);
-             
+
         }
         [HttpGet]
-        [Route("user/wallet/update/{id:int}/{amt:int}")] 
-        public User GetById(int id, int amt){
+        [Route("user/wallet/update/{id:int}/{amt:int}")]
+        public User GetById(int id, int amt)
+        {
 
             return _service.UpdateWallet(id, amt);
 
