@@ -161,9 +161,9 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("loan_paid");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Loans)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__loans__business___6C190EBB");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Loans)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__loans__business___6C190EBB");
         });
 
         modelBuilder.Entity<Transaction>(entity =>

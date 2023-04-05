@@ -19,14 +19,13 @@ namespace API.Controllers
         }
 
         [HttpGet("Info")]
-        public List<Loan> GetAllBusinessUserLoan(Loan loan) {
-            return _service.GetAllBusinessLoan(loan);
+        public List<Loan> GetAllBusinessUserLoan([FromQuery]int business_id) {
+            return _service.GetAllBusinessLoan(business_id);
         }
 
         [HttpPost("New")]
-        public List<Loan> CreateLoan(Loan loan) {
-            _service.CreateBusinessLoan(loan);
-            return _service.GetAllBusinessLoan(loan);
+        public Loan CreateLoan(Loan loan) {
+            return _service.CreateBusinessLoan(loan);
         }
 
         [HttpPut("Pay")]

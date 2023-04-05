@@ -16,6 +16,4 @@ public partial class Loan
     public DateTime? DateLoaned { get; set; }
 
     public DateTime? LoanPaid { get; set; }
-
-    public virtual Business? Business { get; set; }
 }
