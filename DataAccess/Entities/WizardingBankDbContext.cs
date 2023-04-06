@@ -156,7 +156,9 @@ public partial class WizardingBankDbContext : DbContext
             entity.Property(e => e.LoanPaid)
                 .HasColumnType("datetime")
                 .HasColumnName("loan_paid");
-            entity.Property(e => e.MonthlyPay).HasColumnName("monthly_pay");
+            entity.Property(e => e.MonthlyPay)
+                .HasColumnType("decimal(18,2)")
+                .HasColumnName("monthly_pay");
 
             // entity.HasOne(d => d.Business).WithMany(p => p.Loans)
             //     .HasForeignKey(d => d.BusinessId)
