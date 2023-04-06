@@ -36,8 +36,12 @@ public class TransactionServices
                          transaction.Id,
                          transaction.Amount,
                          transaction.CreatedAt,
-                         SenderEmail = sender.Email,
-                         RecipientEmail = recipient.Email,
+                         SenderEmail = (transaction.SenderType == true) ?
+                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
+                                         _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
+                         RecipientEmail = (transaction.RecpientType == true) ?
+                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
+                                         _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
                          transaction.Description
                      };
         var results = result.Take(10).ToList();
@@ -51,9 +55,6 @@ public class TransactionServices
     public List<Object> GetTransactionsWithEmails(int id)
     {
 
-        // Type transac = {
-        //     int id
-        // }
         List<Object> transactions = new List<Object>();
 
         var result = from transaction in _context.Transactions
@@ -62,14 +63,18 @@ public class TransactionServices
                      join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
                      from recipient in recipientGroup.DefaultIfEmpty()
                      where transaction.RecipientId == id || transaction.SenderId == id
-                     orderby transaction.CreatedAt
+                     orderby transaction.CreatedAt descending
                      select new
                      {
                          transaction.Id,
                          transaction.Amount,
                          transaction.CreatedAt,
-                         SenderEmail = sender.Email,
-                         RecipientEmail = recipient.Email,
+                         SenderEmail = (transaction.SenderType == true) ?
+                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
+                                         _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
+                         RecipientEmail = (transaction.RecpientType == true) ?
+                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
+                                         _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
                          transaction.Description
                      };
         foreach (Object obj in result)
@@ -83,7 +88,9 @@ public class TransactionServices
 
     public Transaction CreateTransaction(Transaction transact)
     {
-        _context.Transactions.Add(transact);
+        Transaction tempTransac = transact;
+        tempTransac.CreatedAt = DateTime.Now;
+        _context.Transactions.Add(tempTransac);
         _context.SaveChanges();
 
         return transact;

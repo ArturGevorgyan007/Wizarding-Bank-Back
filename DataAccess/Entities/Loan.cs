@@ -18,4 +18,6 @@ public partial class Loan
     public DateTime? LoanPaid { get; set; }
 
     public decimal? MonthlyPay { get; set; }
+
+    public decimal? AmountPaid { get; set; }
 }
