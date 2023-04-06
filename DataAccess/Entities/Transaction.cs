@@ -27,7 +27,7 @@ public partial class Transaction
 
     public bool? SenderType { get; set; }
 
-    public virtual User? Recipient { get; set; }
+    // public virtual User? Recipient { get; set; }
 
-    public virtual User? Sender { get; set; }
+    // public virtual User? Sender { get; set; }
 }
