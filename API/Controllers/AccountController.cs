@@ -28,15 +28,15 @@ namespace API.Controllers
             return _service.getAccounts(id);
         }
 
-        [HttpPost]
-        public Account createAccount([FromQuery] string routingNumber,[FromQuery] string accountNumber,[FromQuery] int uid, [FromQuery] int bid,[FromQuery] decimal balance){
-            Account acct = new();
-            acct.Balance = balance; acct.RoutingNumber = routingNumber; acct.AccountNumber = accountNumber;
-            if(uid != 0) { acct.UserId = uid; acct.BusinessId = 0;} 
-            else {
-                acct.BusinessId = bid;
-                acct.UserId = 0;
-            }
+        [HttpPost("Add")]
+        public Account createAccount([FromBody] Account acct){
+            // Account acct = new();
+            // acct.Balance = balance; acct.RoutingNumber = routingNumber; acct.AccountNumber = accountNumber;
+            // if(uid != 0) { acct.UserId = uid; acct.BusinessId = 0;} 
+            // else {
+            //     acct.BusinessId = bid;
+            //     acct.UserId = 0;
+            // }
             return _service.createAccount(acct);
         }
 

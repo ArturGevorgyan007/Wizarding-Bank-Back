@@ -2,8 +2,20 @@ using DataAccess;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Services;
+var  MyAllowSpecificOrigins = "*";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>  
+{  
+    options.AddPolicy(name: MyAllowSpecificOrigins,  
+        policy  =>  
+        {  
+            policy.WithOrigins(MyAllowSpecificOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod(); // add the allowed origins  
+        });  
+});  
 
 // Add services to the container.
 builder.Services.AddScoped<UserServices>();
@@ -43,5 +55,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();
