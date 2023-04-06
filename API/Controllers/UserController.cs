@@ -19,7 +19,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("user/{id:int}")]
-        public List<User> GetById(int id)
+        public User GetById(int id)
         {
 
             return _service.GetUser(id);

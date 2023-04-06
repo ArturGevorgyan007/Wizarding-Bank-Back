@@ -39,6 +39,27 @@ public class AccountServices{
         return acct;
     }
 
+    public Account updateAccountBalance(int id, decimal? bal)
+    {
+        var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+        if (account != null)
+        {
+            account.Balance += bal;
+            _context.SaveChangesAsync();
+            return account;
+        }
+        return null;
+    }
+
+    public Account getAccountById(int id){
+        var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+
+        if(account != null){
+            return account;
+        }
+        return null;
+    }
+
     public bool deleteAccount(int acctId, int Id){
         List<Account> acctl = getAccounts(Id);
         Account dacct = new();

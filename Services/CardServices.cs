@@ -35,5 +35,10 @@ public class CardServices
     public List<Card> BusinessCards(int businessId) {
         return _context.Cards.Where(card => card.BusinessId == businessId).ToList();
     }
+
+       public Card GetCard(int cardId) {
+        return _context.Cards.Where(card => card.Id == cardId);
+    }
+
     
 }

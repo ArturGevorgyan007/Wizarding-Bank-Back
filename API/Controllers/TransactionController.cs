@@ -58,5 +58,21 @@ namespace API.Controllers
         {
             return _services.DeleteTransaction(transact);
         }
+
+        [HttpPost]
+
+        /*
+        walletToAccount(userId : number, accountId : number, amount : number) : Observable<any> {
+            var body : Transaction = {
+                "accountId": accountId,
+                "senderId": userId,
+                "amount": amount
+            };
+                return this.http.post(this.apiRoot + 'Transaction', body) as Observable<any>; 
+        }
+        */
+        public Transaction walletToAccount(Transaction transact){
+            return _services.walletToAccount(transact);
+        }
     }
 }
