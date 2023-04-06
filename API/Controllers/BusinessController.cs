@@ -28,6 +28,11 @@ namespace API.Controllers
             return _busService.GetAllBusinesses();
         }
 
+        [HttpGet("bus/{businessId:int}")]
+        public List<Business> getBusinessById(int businessId){
+            return _busService.getBusinessById(businessId);
+        }
+
         [HttpPost]
         public List<Business> Create(Business bus)
         {
@@ -35,7 +40,7 @@ namespace API.Controllers
             return _busService.GetAllBusinesses();
         }
 
-        [HttpPut]
+        [HttpPut("Update")]
         public Business Update(Business bus)
         {
             return _busService.UpdateBusiness(bus);
