@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         // create a card
-        [HttpPost]
+        [HttpPost("Add")]
         public Card AddCard(Card card) {
             return _repo.AddCard(card);
         }

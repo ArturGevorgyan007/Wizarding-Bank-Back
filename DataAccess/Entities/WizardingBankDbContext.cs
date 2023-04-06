@@ -48,13 +48,13 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("routing_number");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__accounts__busine__1CBC4616");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__accounts__busine__1CBC4616");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__accounts__user_i__1BC821DD");
+            // entity.HasOne(d => d.User).WithMany(p => p.Accounts)
+            //     .HasForeignKey(d => d.UserId)
+            //     .HasConstraintName("FK__accounts__user_i__1BC821DD");
         });
 
         modelBuilder.Entity<Business>(entity =>
@@ -129,13 +129,13 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("expiry_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__cards__business___693CA210");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Cards)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("FK__cards__business___693CA210");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Cards)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__cards__user_id__68487DD7");
+            // entity.HasOne(d => d.User).WithMany(p => p.Cards)
+            //     .HasForeignKey(d => d.UserId)
+            //     .HasConstraintName("FK__cards__user_id__68487DD7");
         });
 
         modelBuilder.Entity<Loan>(entity =>
