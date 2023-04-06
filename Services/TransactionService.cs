@@ -6,10 +6,16 @@ namespace Services;
 public class TransactionServices
 {
     private readonly WizardingBankDbContext _context;
+    private readonly UserServices _uservice; 
+    private readonly CardServices _cservice; 
+    private readonly AccountServices _aservice; 
 
     public TransactionServices(WizardingBankDbContext context)
     {
         _context = context;
+        _uservice = new UserServices(_context);
+        _aservice = new AccountServices(_context);
+        _cservice = new CardServices(_context);
     }
 
     public List<Transaction> GetAllTransactions()
@@ -111,20 +117,78 @@ public class TransactionServices
         UserServices uService = new UserServices(_context);
         AccountServices aService = new AccountServices(_context);
         
-        User user = uService.GetUser((int)transact.SenderId!);
-        Account account = aService.getAccountById((int)transact.AccountId!);
+        User user = _uservice.GetUser((int)transact.SenderId!);
+        Account account = _aservice.getAccountById((int)transact.AccountId!);
 
         
         if(user.Wallet >= transact.Amount){
             user.Wallet -= transact.Amount;
             account.Balance += transact.Amount;
-            uService.UpdateWallet(user.Id, user.Wallet);
-            aService.updateAccountBalance(account.Id,account.Balance);
+            _uservice.UpdateWallet(user.Id, user.Wallet);
+            _aservice.updateAccountBalance(account.Id,account.Balance);
         }
 
         _context.Transactions.Add(transact);
         _context.SaveChanges();
 
         return transact;
+    }
+
+    public Transaction walletToCard(Transaction transact){
+          
+        User user = _uservice.GetUser((int)transact.SenderId!);
+        Card card = _cservice.GetCard((int)transact.AccountId!);
+
+        
+        if(user.Wallet >= transact.Amount){
+            user.Wallet -= transact.Amount;
+            card.Balance += transact.Amount;
+            _uservice.UpdateWallet(user.Id, user.Wallet);
+            _aservice.updateAccountBalance(card.Id,card.Balance);
+        }
+
+        _context.Transactions.Add(transact);
+        _context.SaveChanges();
+
+        return transact;
+    }
+
+
+    public Transaction acctToWallet(Transaction transact){
+        Account acct = _aservice.getAccountById((int)transact.AccountId!);
+
+        if(acct.Balance >= transact.Amount){
+            acct.Balance -= transact.Amount;
+            User user = _uservice.GetUser((int) transact.SenderId!);
+            user.Wallet += transact.Amount; 
+            _uservice.UpdateWallet(user.Id, user.Wallet);
+            _aservice.updateAccountBalance(acct.Id, acct.Balance);
+
+            _context.Transactions.Add(transact);
+            _context.SaveChanges();
+
+            return transact;
+        }
+
+        return null;
+    }
+
+    public Transaction cardToWallet(Transaction? transact){
+        Card? card = _cservice.GetCard((int)transact.CardId!);
+
+        if(card.Balance >= transact.Amount){
+            card.Balance -= transact.Amount;
+            User user = _uservice.GetUser((int) transact.SenderId!);
+            user.Wallet += transact.Amount; 
+            _uservice.UpdateWallet(user.Id, user.Wallet);
+            _cservice.updateCardBalance(card.Id, card.Balance);
+
+            _context.Transactions.Add(transact);
+            _context.SaveChanges();
+
+            return transact;
+        }
+
+        return null;
     }
 }

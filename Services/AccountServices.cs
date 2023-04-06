@@ -51,6 +51,8 @@ public class AccountServices{
         return null;
     }
 
+
+    //get Account by accountid
     public Account getAccountById(int id){
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
