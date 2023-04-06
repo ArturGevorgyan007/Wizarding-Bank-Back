@@ -22,4 +22,12 @@ public partial class Transaction
     public int? Status { get; set; }
 
     public int? SenderId { get; set; }
+
+    public bool? RecpientType { get; set; }
+
+    public bool? SenderType { get; set; }
+
+    // public virtual User? Recipient { get; set; }
+
+    // public virtual User? Sender { get; set; }
 }

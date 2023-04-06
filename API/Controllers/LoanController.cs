@@ -14,24 +14,27 @@ namespace API.Controllers
     public class LoanController : ControllerBase
     {
         private readonly Services.LoanServices _service;
-        public LoanController(Services.LoanServices service) {
+        public LoanController(Services.LoanServices service)
+        {
             _service = service;
         }
 
         [HttpGet("Info")]
-        public List<Loan> GetAllBusinessUserLoan(Loan loan) {
-            return _service.GetAllBusinessLoan(loan);
+        public IActionResult GetAllBusinessUserLoan([FromQuery] int business_id)
+        {
+            return Ok(_service.GetAllBusinessLoan(business_id));
         }
 
         [HttpPost("New")]
-        public List<Loan> CreateLoan(Loan loan) {
-            _service.CreateBusinessLoan(loan);
-            return _service.GetAllBusinessLoan(loan);
+        public IActionResult CreateLoan(Loan loan)
+        {
+            return Ok(_service.CreateBusinessLoan(loan));
         }
 
         [HttpPut("Pay")]
-        public Loan PayBusinessLoan(Loan loan, int amount) {
-            return _service.PayLoan(loan, amount);
+        public IActionResult PayBusinessLoan(Loan loan, int amount)
+        {
+            return Ok(_service.PayLoan(loan, amount));
         }
     }
 }

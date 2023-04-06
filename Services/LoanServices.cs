@@ -11,14 +11,17 @@ public class LoanServices
     }
     public Loan CreateBusinessLoan(Loan loan) 
     {
-        _context.Add(loan);
+        Loan loanPH = loan;
+        loanPH.LoanPaid = null;
+        _context.Loans.Add(loanPH);
         _context.SaveChanges();
-        _context.ChangeTracker.Clear();
+
+        // _context.ChangeTracker.Clear();
         return loan;
     }
-    public List<Loan> GetAllBusinessLoan(Loan loan) 
+    public List<Loan> GetAllBusinessLoan(int business_id) 
     {
-        return _context.Loans.Where(x => x.BusinessId == loan.BusinessId).ToList();
+        return _context.Loans.Where(x => x.BusinessId == business_id).ToList();
     }
     public Loan PayLoan(Loan loan, int amount){
         var loanObj = _context.Loans.SingleOrDefault(x => x.BusinessId == loan.BusinessId);

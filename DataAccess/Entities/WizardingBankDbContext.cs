@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -129,10 +129,6 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("expiry_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            // entity.HasOne(d => d.Business).WithMany(p => p.Cards)
-            //     .HasForeignKey(d => d.BusinessId)
-            //     .HasConstraintName("FK__cards__business___693CA210");
-
             // entity.HasOne(d => d.User).WithMany(p => p.Cards)
             //     .HasForeignKey(d => d.UserId)
             //     .HasConstraintName("FK__cards__user_id__68487DD7");
@@ -160,19 +156,20 @@ public partial class WizardingBankDbContext : DbContext
             entity.Property(e => e.LoanPaid)
                 .HasColumnType("datetime")
                 .HasColumnName("loan_paid");
+            entity.Property(e => e.MonthlyPay)
+                .HasColumnType("decimal(18,2)")
+                .HasColumnName("monthly_pay");
 
-            entity.HasOne(d => d.Business).WithMany(p => p.Loans)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK__loans__business___6C190EBB");
+            // entity.HasOne(d => d.Business).WithMany(p => p.Loans)
+            //     .HasForeignKey(d => d.BusinessId)
+            //     .HasConstraintName("business_id");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
         {
             entity
-                .HasKey(e => e.Id).HasName("PK__transact__3213E8382286");
-
-
-            entity.ToTable("transactions");
+                .HasNoKey()
+                .ToTable("transactions");
 
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.Amount)
@@ -180,6 +177,7 @@ public partial class WizardingBankDbContext : DbContext
                 .HasColumnName("amount");
             entity.Property(e => e.CardId).HasColumnName("card_id");
             entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description)
@@ -190,8 +188,18 @@ public partial class WizardingBankDbContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.RecipientId).HasColumnName("recipient_id");
+            entity.Property(e => e.RecpientType).HasColumnName("recpient_type");
             entity.Property(e => e.SenderId).HasColumnName("sender_id");
+            entity.Property(e => e.SenderType).HasColumnName("sender_type");
             entity.Property(e => e.Status).HasColumnName("status");
+
+            // entity.HasOne(d => d.Recipient).WithMany()
+            //     .HasForeignKey(d => d.RecipientId)
+            //     .HasConstraintName("recipient_id");
+
+            // entity.HasOne(d => d.Sender).WithMany()
+            //     .HasForeignKey(d => d.SenderId)
+            //     .HasConstraintName("sender_id");
         });
 
         modelBuilder.Entity<User>(entity =>
