@@ -11,6 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
 
     public class BusinessController : ControllerBase
     {
@@ -50,6 +51,13 @@ namespace API.Controllers
         public IActionResult GetBusinessByEmail(string email)
         {
             return Ok(_busService.GetBusiness(email).Id);
+        }
+
+        [HttpGet]
+        [Route("busType/{email}")]
+        public IActionResult GetBusinessTypeByEmail(string email)
+        { 
+            return Ok(_busService.GetBusiness(email).BusinessType);
         }
 
     }
