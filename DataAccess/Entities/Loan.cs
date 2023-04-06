@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess.Entities;
@@ -16,4 +16,6 @@ public partial class Loan
     public DateTime? DateLoaned { get; set; }
 
     public DateTime? LoanPaid { get; set; }
+
+    public int? MonthlyPay { get; set; }
 }

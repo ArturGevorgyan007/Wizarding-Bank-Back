@@ -25,7 +25,5 @@ public partial class Business
 
     public virtual ICollection<Account> Accounts { get; } = new List<Account>();
 
-    public virtual ICollection<Card> Cards { get; } = new List<Card>();
-
     public virtual ICollection<Loan> Loans { get; } = new List<Loan>();
 }

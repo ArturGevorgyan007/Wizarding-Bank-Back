@@ -16,8 +16,4 @@ public partial class Account
     public int? BusinessId { get; set; }
 
     public decimal? Balance { get; set; }
-
-    public virtual Business? Business { get; set; }
-
-    public virtual User? User { get; set; }
 }
