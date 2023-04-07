@@ -19,7 +19,6 @@ public class LoanServices
         bus!.Wallet += loan.Amount;
         _context.SaveChanges();
 
-        // _context.ChangeTracker.Clear();
         return loan;
     }
     public List<Loan> GetAllBusinessLoan(int business_id)
@@ -28,7 +27,6 @@ public class LoanServices
     }
     public Loan PayLoan(int id, decimal principle, decimal amount)
     {
-        Console.WriteLine("Id: " + id + " Amount: " + amount);
         var loanObj = _context.Loans.SingleOrDefault(x => x.BusinessId == id && x.Amount - x.AmountPaid > 0);
         var bus = _context.Businesses.SingleOrDefault(y => y.Id == id);
         if (loanObj!.Amount - principle <= 0)

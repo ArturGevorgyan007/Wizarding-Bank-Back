@@ -10,6 +10,10 @@ public partial class WizardingBankDbContext : DbContext
         : base(options)
     {
     }
+    public WizardingBankDbContext()
+        : base()
+    {
+    }
 
     public virtual DbSet<Account> Accounts { get; set; }
 
