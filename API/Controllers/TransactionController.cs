@@ -58,5 +58,32 @@ namespace API.Controllers
         {
             return _services.DeleteTransaction(transact);
         }
+
+        [HttpPost]
+        [Route("transaction/walletToAccount")]
+        public Transaction walletToAccount(Transaction transact){
+            return _services.walletToAccount(transact);
+        }
+
+        [HttpPost]
+        [Route("transactions/internal")]
+        public Transaction internalTransaction([FromQuery] int type, Transaction transact){
+            switch(type){
+                case 1:
+                    return _services.walletToAccount(transact);
+                break; 
+                case 2:
+                    return _services.walletToCard(transact);
+                break; 
+                case 3: 
+                    return _services.cardToWallet(transact);
+                break; 
+                case 4:
+                    return _services.acctToWallet(transact);
+                break;
+                default: return null!;
+                break;
+            }
+        }
     }
 }
