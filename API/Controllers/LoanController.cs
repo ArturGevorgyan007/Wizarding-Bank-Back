@@ -33,10 +33,10 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("Pay/{id}/{amount}")]
-        public IActionResult PayBusinessLoan(int id, decimal amount)
+        [HttpPut("Pay/{id}/{amount}/{principle}")]
+        public IActionResult PayBusinessLoan(int id, decimal amount, decimal principle)
         {
-            return Ok(_service.PayLoan(id, amount));
+            return Ok(_service.PayLoan(id, principle, amount));
         }
     }
 }
