@@ -19,6 +19,10 @@ public class BusinessServices
         return _context.Businesses.ToList();
     }
 
+    public List<Business> getBusinessById(int businessId){
+        return _context.Businesses.Where(w => w.Id == businessId).ToList();
+    }
+
     public Business CreateBusiness(Business bus)
     {
         _context.Add(bus);
