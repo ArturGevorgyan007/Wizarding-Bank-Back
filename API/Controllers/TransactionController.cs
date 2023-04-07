@@ -61,17 +61,6 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("transaction/walletToAccount")]
-
-        /*
-        walletToAccount(userId : number, accountId : number, amount : number) : Observable<any> {
-            var body : Transaction = {
-                "accountId": accountId,
-                "senderId": userId,
-                "amount": amount
-            };
-                return this.http.post(this.apiRoot + 'Transaction', body) as Observable<any>; 
-        }
-        */
         public Transaction walletToAccount(Transaction transact){
             return _services.walletToAccount(transact);
         }
@@ -89,8 +78,10 @@ namespace API.Controllers
                 case 3: 
                     return _services.cardToWallet(transact);
                 break; 
-                default:
+                case 4:
                     return _services.acctToWallet(transact);
+                break;
+                default: return null!;
                 break;
             }
         }

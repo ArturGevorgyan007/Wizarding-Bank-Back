@@ -6,16 +6,11 @@ namespace Services;
 public class TransactionServices
 {
     private readonly WizardingBankDbContext _context;
-    private readonly UserServices _uservice; 
-    private readonly CardServices _cservice; 
-    private readonly AccountServices _aservice; 
+
 
     public TransactionServices(WizardingBankDbContext context)
     {
         _context = context;
-        _uservice = new UserServices(_context);
-        _aservice = new AccountServices(_context);
-        _cservice = new CardServices(_context);
     }
 
     public List<Transaction> GetAllTransactions()
@@ -114,18 +109,16 @@ public class TransactionServices
     }
 
     public Transaction walletToAccount(Transaction transact){
-        UserServices uService = new UserServices(_context);
-        AccountServices aService = new AccountServices(_context);
         
-        User user = _uservice.GetUser((int)transact.SenderId!);
-        Account account = _aservice.getAccountById((int)transact.AccountId!);
+        User user =this.getUser((int)transact.SenderId!);
+        Account account = this.getAccountById((int)transact.AccountId!);
 
         
         if(user.Wallet >= transact.Amount){
             user.Wallet -= transact.Amount;
             account.Balance += transact.Amount;
-            _uservice.UpdateWallet(user.Id, user.Wallet);
-            _aservice.updateAccountBalance(account.Id,account.Balance);
+            this.updateWallet(user.Id, user.Wallet);
+            this.updateAccountBalance(account.Id,account.Balance);
         }
 
         _context.Transactions.Add(transact);
@@ -136,15 +129,15 @@ public class TransactionServices
 
     public Transaction walletToCard(Transaction transact){
           
-        User user = _uservice.GetUser((int)transact.SenderId!);
-        Card card = _cservice.GetCard((int)transact.AccountId!);
+        User user = this.getUser((int)transact.SenderId!);
+        Card card = this.GetCard((int)transact.CardId!);
 
         
         if(user.Wallet >= transact.Amount){
             user.Wallet -= transact.Amount;
             card.Balance += transact.Amount;
-            _uservice.UpdateWallet(user.Id, user.Wallet);
-            _aservice.updateAccountBalance(card.Id,card.Balance);
+            this.updateWallet(user.Id, user.Wallet);
+            this.updateCardBalance(card.Id,card.Balance);
         }
 
         _context.Transactions.Add(transact);
@@ -154,15 +147,19 @@ public class TransactionServices
     }
 
 
-    public Transaction acctToWallet(Transaction transact){
-        Account acct = _aservice.getAccountById((int)transact.AccountId!);
+    public async Transaction acctToWallet(Transaction transact){
+        Account acct = this.getAccountById((int)transact.AccountId!);
 
         if(acct.Balance >= transact.Amount){
             acct.Balance -= transact.Amount;
-            User user = _uservice.GetUser((int) transact.SenderId!);
+            this.updateAccountBalance(acct.Id, acct.Balance);
+            
+            User user = this.getUser((int) transact.SenderId!);
+            
+            
             user.Wallet += transact.Amount; 
-            _uservice.UpdateWallet(user.Id, user.Wallet);
-            _aservice.updateAccountBalance(acct.Id, acct.Balance);
+            this.updateWallet(user.Id, user.Wallet);
+            
 
             _context.Transactions.Add(transact);
             _context.SaveChanges();
@@ -174,14 +171,14 @@ public class TransactionServices
     }
 
     public Transaction cardToWallet(Transaction? transact){
-        Card? card = _cservice.GetCard((int)transact.CardId!);
+        Card? card = this.GetCard((int)transact.CardId!);
 
         if(card.Balance >= transact.Amount){
             card.Balance -= transact.Amount;
-            User user = _uservice.GetUser((int) transact.SenderId!);
+            User user = this.getUser((int) transact.SenderId!);
             user.Wallet += transact.Amount; 
-            _uservice.UpdateWallet(user.Id, user.Wallet);
-            _cservice.updateCardBalance(card.Id, card.Balance);
+            this.updateWallet(user.Id, user.Wallet);
+            this.updateCardBalance(card.Id, card.Balance);
 
             _context.Transactions.Add(transact);
             _context.SaveChanges();
@@ -189,6 +186,62 @@ public class TransactionServices
             return transact;
         }
 
+        return null;
+    }
+
+    public User updateWallet(int id, decimal? ammount)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Id == id);
+        if (user != null)
+        {
+            user.Wallet += ammount;
+            _context.SaveChangesAsync();
+            return user;
+        }
+        return null;
+    }
+
+    public User getUser(int id){
+        return _context.Users.FirstOrDefault(w => w.Id == id)!;
+    }
+
+     public Card updateCardBalance(int cId, decimal? amt){
+        var card = _context.Cards.FirstOrDefault(c => c.Id == cId);
+        if (card != null)
+        {
+            card.Balance += amt; 
+            _context.SaveChangesAsync();
+            return card;
+        }
+
+        return null;
+    }
+
+    public Card GetCard(int cardId) {
+        return _context.Cards.FirstOrDefault(card => card.Id == cardId)!;
+    }
+
+
+    public Account updateAccountBalance(int id, decimal? bal)
+    {
+        var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+        if (account != null)
+        {
+            account.Balance += bal;
+            _context.SaveChangesAsync();
+            return account;
+        }
+        return null;
+    }
+
+
+    //get Account by accountid
+    public Account getAccountById(int id){
+        var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+
+        if(account != null){
+            return account;
+        }
         return null;
     }
 }

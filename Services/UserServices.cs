@@ -27,7 +27,7 @@ public class UserServices
 
     public User GetUser(int id)
     {
-        return (User)_context.Users.Where(w => w.Id == id);
+        return _context.Users.FirstOrDefault(w => w.Id == id)!;
 
     }
     public List<User> GetUser(string username, string password)
