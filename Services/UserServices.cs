@@ -25,9 +25,9 @@ public class UserServices
         return _context.Users.ToList();
     }
 
-    public List<User> GetUser(int id)
+    public User GetUser(int id)
     {
-        return (List<User>)_context.Users.Where(w => w.Id == id).ToList();
+        return _context.Users.FirstOrDefault(w => w.Id == id)!;
 
     }
     public List<User> GetUser(string username, string password)
@@ -56,13 +56,13 @@ public class UserServices
         return u;
     }
 
-    public User UpdateWallet(int id, int ammount)
+    public User UpdateWallet(int id, decimal? ammount)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
         if (user != null)
         {
             user.Wallet += ammount;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return user;
         }
         return null;

@@ -174,9 +174,7 @@ public partial class WizardingBankDbContext : DbContext
 
         modelBuilder.Entity<Transaction>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("transactions");
+            entity.HasKey(t => t.Id).HasName("PK_transact_3213E83F11F07589");
 
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.Amount)

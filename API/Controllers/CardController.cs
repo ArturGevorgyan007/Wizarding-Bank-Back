@@ -24,6 +24,11 @@ namespace API.Controllers
             return _repo.AddCard(card);
         }
 
+        [HttpGet("card/{id:int}")]
+        public Card GetCardByID(int Id) {
+            return _repo.GetCard(Id);
+        }
+
         // delete a card
         [HttpDelete]
         public Card RemoveCard(Card card) {
