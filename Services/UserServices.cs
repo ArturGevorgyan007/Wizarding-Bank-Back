@@ -62,7 +62,7 @@ public class UserServices
         if (user != null)
         {
             user.Wallet += ammount;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return user;
         }
         return null;

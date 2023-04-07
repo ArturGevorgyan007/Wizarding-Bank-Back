@@ -45,7 +45,7 @@ public class AccountServices{
         if (account != null)
         {
             account.Balance += bal;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return account;
         }
         return null;

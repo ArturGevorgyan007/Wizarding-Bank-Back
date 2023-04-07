@@ -115,10 +115,8 @@ public class TransactionServices
 
         
         if(user.Wallet >= transact.Amount){
-            user.Wallet -= transact.Amount;
-            account.Balance += transact.Amount;
-            this.updateWallet(user.Id, user.Wallet);
-            this.updateAccountBalance(account.Id,account.Balance);
+            this.updateWallet(user.Id, -transact.Amount);
+            this.updateAccountBalance(account.Id, transact.Amount);
         }
 
         _context.Transactions.Add(transact);
@@ -130,35 +128,31 @@ public class TransactionServices
     public Transaction walletToCard(Transaction transact){
           
         User user = this.getUser((int)transact.SenderId!);
-        Card card = this.GetCard((int)transact.CardId!);
-
         
         if(user.Wallet >= transact.Amount){
-            user.Wallet -= transact.Amount;
-            card.Balance += transact.Amount;
-            this.updateWallet(user.Id, user.Wallet);
-            this.updateCardBalance(card.Id,card.Balance);
+            
+            this.updateWallet(user.Id, -transact.Amount);
+            
+            Card card = this.GetCard((int)transact.CardId!);
+    
+            this.updateCardBalance(card.Id, transact.Amount);
+            _context.Transactions.Add(transact);
         }
 
-        _context.Transactions.Add(transact);
+       
         _context.SaveChanges();
 
         return transact;
     }
 
 
-    public async Transaction acctToWallet(Transaction transact){
+    public  Transaction acctToWallet(Transaction transact){
         Account acct = this.getAccountById((int)transact.AccountId!);
 
         if(acct.Balance >= transact.Amount){
-            acct.Balance -= transact.Amount;
-            this.updateAccountBalance(acct.Id, acct.Balance);
-            
-            User user = this.getUser((int) transact.SenderId!);
-            
-            
-            user.Wallet += transact.Amount; 
-            this.updateWallet(user.Id, user.Wallet);
+            this.updateAccountBalance(acct.Id, -transact.Amount);
+            User user = this.getUser((int) transact.RecipientId!);
+            this.updateWallet(user.Id, transact.Amount);
             
 
             _context.Transactions.Add(transact);
@@ -174,11 +168,9 @@ public class TransactionServices
         Card? card = this.GetCard((int)transact.CardId!);
 
         if(card.Balance >= transact.Amount){
-            card.Balance -= transact.Amount;
-            User user = this.getUser((int) transact.SenderId!);
-            user.Wallet += transact.Amount; 
-            this.updateWallet(user.Id, user.Wallet);
-            this.updateCardBalance(card.Id, card.Balance);
+            User user = this.getUser((int) transact.RecipientId!);
+            this.updateWallet(user.Id, transact.Amount);
+            this.updateCardBalance(card.Id, -transact.Amount);
 
             _context.Transactions.Add(transact);
             _context.SaveChanges();
@@ -195,7 +187,6 @@ public class TransactionServices
         if (user != null)
         {
             user.Wallet += ammount;
-            _context.SaveChangesAsync();
             return user;
         }
         return null;
@@ -210,7 +201,6 @@ public class TransactionServices
         if (card != null)
         {
             card.Balance += amt; 
-            _context.SaveChangesAsync();
             return card;
         }
 
@@ -228,7 +218,6 @@ public class TransactionServices
         if (account != null)
         {
             account.Balance += bal;
-            _context.SaveChangesAsync();
             return account;
         }
         return null;

@@ -32,7 +32,7 @@ public class CardServices
         if (card != null)
         {
             card.Balance += amt; 
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return card;
         }
 
