@@ -181,6 +181,7 @@ public class TransactionServices
         return null;
     }
 
+
     public User updateWallet(int id, decimal? ammount)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
@@ -233,4 +234,12 @@ public class TransactionServices
         }
         return null;
     }
+
+     public List<User> getUserByEmail(string email)
+    {
+        return (List<User>)_context.Users.Where(w => w.Email == email).ToList();
+
+    }
+
+    
 }
