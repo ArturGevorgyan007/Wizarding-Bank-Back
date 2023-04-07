@@ -19,10 +19,11 @@ namespace API.Controllers
             _service = service;
         }
 
-        [HttpGet("Info")]
-        public IActionResult GetAllBusinessUserLoan([FromQuery] int business_id)
+        [HttpGet("Info/{busId}")]
+        public IActionResult GetAllBusinessUserLoan(int busId)
         {
-            return Ok(_service.GetAllBusinessLoan(business_id));
+            Console.WriteLine(busId);
+            return Ok(_service.GetAllBusinessLoan(busId)[0]);
         }
 
         [HttpPost("New")]
@@ -31,10 +32,11 @@ namespace API.Controllers
             return Ok(_service.CreateBusinessLoan(loan));
         }
 
-        [HttpPut("Pay")]
-        public IActionResult PayBusinessLoan(Loan loan, int amount)
+
+        [HttpPut("Pay/{id}/{amount}/{principle}")]
+        public IActionResult PayBusinessLoan(int id, decimal amount, decimal principle)
         {
-            return Ok(_service.PayLoan(loan, amount));
+            return Ok(_service.PayLoan(id, principle, amount));
         }
     }
 }
