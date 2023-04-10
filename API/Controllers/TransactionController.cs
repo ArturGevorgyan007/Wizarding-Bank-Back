@@ -33,6 +33,7 @@ namespace API.Controllers
         {
             return Ok(_services.GetTransactionsWithEmails(id));
         }
+        
         [HttpGet]
         [Route("transaction/number/{id:int}")]
         public IActionResult GetLimitedTransactionsByID(int id)
