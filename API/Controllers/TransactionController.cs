@@ -66,7 +66,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("transactions/internal")]
+        [Route("transaction/internal")]
         public Transaction internalTransaction([FromQuery] int type, Transaction transact){
             switch(type){
                 case 1:
@@ -84,6 +84,12 @@ namespace API.Controllers
                 default: return null!;
                 break;
             }
+        }
+
+        [HttpPost]
+        [Route("transaction/userToUser")]
+        public Transaction userToUser(Transaction transact){
+            return _services.userToUser(transact);
         }
     }
 }

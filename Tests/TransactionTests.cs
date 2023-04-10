@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 using Services;
+using System.Linq;
 
 namespace Tests
 
@@ -216,50 +217,52 @@ namespace Tests
             mockDbContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-//         [Fact]
-// public void WalletToAccount_Should_Update_Wallet_And_Account_Balance_And_Add_Transaction()
-// {
-//     // Arrange
+        [Fact]
+        public void WalletToAccount_Should_Update_Wallet_And_Account_Balance_And_Add_Transaction()
+        {
+            // Arrange
 
-//     var _contextMock = new Mock<WizardingBankDbContext>(new DbContextOptions<WizardingBankDbContext>());
+            var contextMock = new Mock<WizardingBankDbContext>(new DbContextOptions<WizardingBankDbContext>());
 
-//     var user = new User
-//     {
-//         Id = 1,
-//         Wallet = 1000
-//     };
+            var user = new User
+            {
+                Id = 1,
+                Wallet = 1000
+            };
 
-//     var account = new Account
-//     {
-//         Id = 1,
-//         Balance = 500
-//     };
+            var account = new Account
+            {
+                Id = 1,
+                Balance = 500
+            };
 
-//     var transaction = new Transaction
-//     {
-//         SenderId = user.Id,
-//         AccountId = account.Id,
-//         Amount = 200
-//     };
+            var transaction = new Transaction
+            {
+                SenderId = user.Id,
+                AccountId = account.Id,
+                Amount = 200
+            };
 
-//     _contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
-//     _contextMock.Setup(x => x.Accounts.Find(account.Id)).Returns(account);
+            var transactionServices = new TransactionServices(contextMock.Object);
+            
 
-//     var transactionServices = new TransactionServices(_contextMock.Object);
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
+            contextMock.Setup(x => x.Accounts.Find(account.Id)).Returns(account);
 
-//     // Act
-//     var result = transactionServices.walletToAccount(transaction);
 
-//     // Assert
-//     Assert.NotNull(result);
-//     Assert.Equal(transaction, result);
+            // Act
+            var result = transactionServices.walletToAccount(transaction);
 
-//     Assert.Equal(800, user.Wallet);
-//     Assert.Equal(700, account.Balance);
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(transaction, result);
 
-//     _contextMock.Verify(x => x.SaveChanges(), Times.Once);
-//     _contextMock.Verify(x => x.Transactions.Add(transaction), Times.Once);
-// }
+            Assert.Equal(800, user.Wallet);
+            Assert.Equal(700, account.Balance);
+
+            contextMock.Verify(x => x.SaveChanges(), Times.Once);
+            contextMock.Verify(x => x.Transactions.Add(transaction), Times.Once);
+        }
 
         // Utility method for mocking DbSet
         private static DbSet<T> MockDbSet2<T>(List<T> data) where T : class

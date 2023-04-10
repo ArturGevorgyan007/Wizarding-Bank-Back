@@ -27,25 +27,25 @@ public class TransactionServices
 
         var result = from transaction in _context.Transactions
 
-                     join sender in _context.Users on transaction.SenderId equals sender.Id into senderGroup
-                     from sender in senderGroup.DefaultIfEmpty()
-                     join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
-                     from recipient in recipientGroup.DefaultIfEmpty()
-                     where transaction.RecipientId == id || transaction.SenderId == id
-                     orderby transaction.CreatedAt descending
-                     select new
-                     {
-                         transaction.Id,
-                         transaction.Amount,
-                         transaction.CreatedAt,
-                         SenderEmail = (transaction.SenderType == true) ?
-                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
-                                         _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
-                         RecipientEmail = (transaction.RecpientType == true) ?
-                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
-                                         _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
-                         transaction.Description
-                     };
+                    join sender in _context.Users on transaction.SenderId equals sender.Id into senderGroup
+                    from sender in senderGroup.DefaultIfEmpty()
+                    join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
+                    from recipient in recipientGroup.DefaultIfEmpty()
+                    where transaction.RecipientId == id || transaction.SenderId == id
+                    orderby transaction.CreatedAt descending
+                    select new
+                    {
+                        transaction.Id,
+                        transaction.Amount,
+                        transaction.CreatedAt,
+                        SenderEmail = (transaction.SenderType == true) ?
+                                        _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
+                                        _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
+                        RecipientEmail = (transaction.RecpientType == true) ?
+                                        _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
+                                        _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
+                        transaction.Description
+                    };
 
         var results = result.Take(10).ToList();
         foreach (Object obj in results)
@@ -62,25 +62,25 @@ public class TransactionServices
 
         var result = from transaction in _context.Transactions
 
-                     join sender in _context.Users on transaction.SenderId equals sender.Id into senderGroup
-                     from sender in senderGroup.DefaultIfEmpty()
-                     join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
-                     from recipient in recipientGroup.DefaultIfEmpty()
-                     where transaction.RecipientId == id || transaction.SenderId == id
-                     orderby transaction.CreatedAt descending
-                     select new
-                     {
-                         transaction.Id,
-                         transaction.Amount,
-                         transaction.CreatedAt,
-                         SenderEmail = (transaction.SenderType == true) ?
-                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
-                                         _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
-                         RecipientEmail = (transaction.RecpientType == true) ?
-                                         _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
-                                         _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
-                         transaction.Description
-                     };
+                    join sender in _context.Users on transaction.SenderId equals sender.Id into senderGroup
+                    from sender in senderGroup.DefaultIfEmpty()
+                    join recipient in _context.Users on transaction.RecipientId equals recipient.Id into recipientGroup
+                    from recipient in recipientGroup.DefaultIfEmpty()
+                    where transaction.RecipientId == id || transaction.SenderId == id
+                    orderby transaction.CreatedAt descending
+                    select new
+                    {
+                        transaction.Id,
+                        transaction.Amount,
+                        transaction.CreatedAt,
+                        SenderEmail = (transaction.SenderType == true) ?
+                                        _context.Businesses.FirstOrDefault(b => b.Id == transaction.SenderId).Email :
+                                        _context.Users.FirstOrDefault(u => u.Id == transaction.SenderId).Email,
+                        RecipientEmail = (transaction.RecpientType == true) ?
+                                        _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
+                                        _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
+                        transaction.Description
+                    };
 
         foreach (Object obj in result)
         {
@@ -93,9 +93,9 @@ public class TransactionServices
 
     public Transaction CreateTransaction(Transaction transact)
     {
-        Transaction tempTransac = transact;
-        tempTransac.CreatedAt = DateTime.Now;
-        _context.Transactions.Add(tempTransac);
+        //Transaction tempTransac = transact;
+        transact.CreatedAt = DateTime.Now;
+        _context.Transactions.Add(transact);
         _context.SaveChanges();
 
         return transact;
@@ -105,7 +105,7 @@ public class TransactionServices
     public Transaction UpdateTransaction(Transaction transact)
     {
         _context.Transactions.Update(transact);
-        _context.Transactions.ToList();
+        // _context.Transactions.ToList();
         _context.SaveChanges();
 
         return transact;
@@ -137,7 +137,7 @@ public class TransactionServices
     }
 
     public Transaction walletToCard(Transaction transact){
-          
+        
         User user = this.getUser((int)transact.SenderId!);
         
         if(user.Wallet >= transact.Amount){
@@ -150,7 +150,7 @@ public class TransactionServices
             _context.Transactions.Add(transact);
         }
 
-       
+    
         _context.SaveChanges();
 
         return transact;
@@ -192,6 +192,22 @@ public class TransactionServices
         return null;
     }
 
+//User to User transaction
+        public Transaction userToUser(Transaction transact){
+        User sender = this.getUser((int)transact.SenderId!);
+        User receiver = this.getUser((int)transact.RecipientId!);
+
+        if(sender.Wallet >= transact.Amount){
+            this.updateWallet(sender.Id, -transact.Amount);
+            this.updateWallet(receiver.Id, transact.Amount);
+            _context.Transactions.Add(transact);
+        }
+
+        _context.SaveChanges();
+
+        return transact;
+    }
+
 
     public User updateWallet(int id, decimal? ammount)
     {
@@ -208,7 +224,7 @@ public class TransactionServices
         return _context.Users.FirstOrDefault(w => w.Id == id)!;
     }
 
-     public Card updateCardBalance(int cId, decimal? amt){
+    public Card updateCardBalance(int cId, decimal? amt){
         var card = _context.Cards.FirstOrDefault(c => c.Id == cId);
         if (card != null)
         {
@@ -246,7 +262,7 @@ public class TransactionServices
         return null;
     }
 
-     public List<User> getUserByEmail(string email)
+    public List<User> getUserByEmail(string email)
     {
         return (List<User>)_context.Users.Where(w => w.Email == email).ToList();
 
