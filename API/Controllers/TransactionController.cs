@@ -81,5 +81,11 @@ namespace API.Controllers
                 default: return null!;
             }
         }
+
+        [HttpPost]
+        [Route("transaction/userToUser")]
+        public Transaction userToUser(Transaction transact){
+            return _services.userToUser(transact);
+        }
     }
 }
