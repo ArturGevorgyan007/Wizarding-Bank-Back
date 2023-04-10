@@ -195,8 +195,8 @@ public class TransactionServices
         return null;
     }
 
-//User to User transaction
-        public Transaction userToUser(Transaction transact){
+    //User to User transaction
+    public Transaction? userToUser(Transaction transact){
         User sender = this.getUser((int)transact.SenderId!);
         User receiver = this.getUser((int)transact.RecipientId!);
 
@@ -204,13 +204,12 @@ public class TransactionServices
             this.updateWallet(sender.Id, -transact.Amount);
             this.updateWallet(receiver.Id, transact.Amount);
             _context.Transactions.Add(transact);
+            _context.SaveChanges();
+            return transact;
         }
 
-        _context.SaveChanges();
-
-        return transact;
+        return null;
     }
-
 
     public User? updateWallet(int id, decimal? ammount)
     {
