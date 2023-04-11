@@ -33,6 +33,7 @@ namespace API.Controllers
         {
             return Ok(_services.GetTransactionsWithEmails(id));
         }
+        
         [HttpGet]
         [Route("transaction/number/{id:int}")]
         public IActionResult GetLimitedTransactionsByID(int id)
@@ -61,34 +62,29 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("transaction/walletToAccount")]
-        public Transaction walletToAccount(Transaction transact){
+        public Transaction? walletToAccount(Transaction transact){
             return _services.walletToAccount(transact);
         }
 
         [HttpPost]
         [Route("transaction/internal")]
-        public Transaction internalTransaction([FromQuery] int type, Transaction transact){
+        public Transaction? internalTransaction([FromQuery] int type, Transaction transact){
             switch(type){
                 case 1:
                     return _services.walletToAccount(transact);
-                break; 
                 case 2:
                     return _services.walletToCard(transact);
-                break; 
                 case 3: 
                     return _services.cardToWallet(transact);
-                break; 
                 case 4:
                     return _services.acctToWallet(transact);
-                break;
                 default: return null!;
-                break;
             }
         }
 
         [HttpPost]
         [Route("transaction/userToUser")]
-        public Transaction userToUser(Transaction transact){
+        public Transaction? userToUser(Transaction transact){
             return _services.userToUser(transact);
         }
     }

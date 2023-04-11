@@ -200,6 +200,7 @@ public class TransactionServices
     }
 
     public Transaction? cardToWallet(Transaction transact){
+    public Transaction? cardToWallet(Transaction transact){
         Card? card = this.GetCard((int)transact.CardId!);
 
         if(card.Balance >= transact.Amount && transact != null){
@@ -295,6 +296,7 @@ public class TransactionServices
     }
 
     public Card? updateCardBalance(int cId, decimal? amt){
+    public Card? updateCardBalance(int cId, decimal? amt){
         var card = _context.Cards.FirstOrDefault(c => c.Id == cId);
         if (card != null)
         {
@@ -311,6 +313,7 @@ public class TransactionServices
 
 
     public Account? updateAccountBalance(int id, decimal? bal)
+    public Account? updateAccountBalance(int id, decimal? bal)
     {
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
         if (account != null)
@@ -323,6 +326,7 @@ public class TransactionServices
 
 
     //get Account by accountid
+    public Account? getAccountById(int id){
     public Account? getAccountById(int id){
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
