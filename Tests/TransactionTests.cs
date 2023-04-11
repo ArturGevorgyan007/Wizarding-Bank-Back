@@ -463,31 +463,29 @@ namespace Tests
             contextMock.Verify(x => x.Transactions.Add(transaction[0]), Times.Once);
         }
         [Fact]
-    public void Should_ReturnListOfUsers_When_GetUserByEmailCalled()
-    {
-        // Arrange
-        var email = "test@example.com";
-        var expectedUsers = new List<User> { new User { Id = 1, Email = email } };
-        var mockContext = new Mock<WizardingBankDbContext>();
-        var mockSet = new Mock<DbSet<User>>();
-        mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(expectedUsers.AsQueryable().Provider);
-        mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(expectedUsers.AsQueryable().Expression);
-        mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(expectedUsers.AsQueryable().ElementType);
-        mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(expectedUsers.GetEnumerator());
-        mockContext.Setup(m => m.Users).Returns(mockSet.Object);
-        var transactionServices = new TransactionServices(mockContext.Object);
+        public void Should_ReturnListOfUsers_When_GetUserByEmailCalled()
+        {
+            // Arrange
+            var email = "test@example.com";
+            var expectedUsers = new List<User> { new User { Id = 1, Email = email } };
+            var mockContext = new Mock<WizardingBankDbContext>();
+            var mockSet = new Mock<DbSet<User>>();
+            mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(expectedUsers.AsQueryable().Provider);
+            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(expectedUsers.AsQueryable().Expression);
+            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(expectedUsers.AsQueryable().ElementType);
+            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(expectedUsers.GetEnumerator());
+            mockContext.Setup(m => m.Users).Returns(mockSet.Object);
+            var transactionServices = new TransactionServices(mockContext.Object);
 
 
-        // Act
-        var result = transactionServices.getUserByEmail(email);
+            // Act
+            var result = transactionServices.getUserByEmail(email);
 
-        // Assert
-        Assert.Equal(expectedUsers, result);
-    }
-    
-    }
-
+            // Assert
+            Assert.Equal(expectedUsers, result);
         }
+    }
+}
     
 
     
