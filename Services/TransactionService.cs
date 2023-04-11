@@ -119,97 +119,167 @@ public class TransactionServices
         return transact;
     }
 
-    public Transaction walletToAccount(Transaction transact){
-        
-        User user =this.getUser((int)transact.SenderId!);
-        Account account = this.getAccountById((int)transact.AccountId!);
-
-        
-        if(user.Wallet >= transact.Amount){
-            this.updateWallet(user.Id, -transact.Amount);
-            this.updateAccountBalance(account.Id, transact.Amount);
+    public Transaction? walletToAccount(Transaction transact){
+        Account? account = this.getAccountById((int)transact.AccountId!);
+        if(transact.SenderType == true){
+            Business busi = this.getBusinessById((int)transact.SenderId!);
+            if(busi.Wallet >= transact.Amount && busi != null && account != null){
+                this.updateBWallet(busi.Id, -transact.Amount);
+                this.updateAccountBalance(account.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
+                return transact;
+        } else {
+            User user =this.getUser((int)transact.SenderId!);
+            if(user.Wallet >= transact.Amount && account != null && user != null){
+                this.updateWallet(user.Id, -transact.Amount);
+                this.updateAccountBalance(account.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
+                return transact;
+            }
         }
-
-        _context.Transactions.Add(transact);
-        _context.SaveChanges();
-
-        return transact;
+    }
+        return null;    
     }
 
-    public Transaction walletToCard(Transaction transact){
+    public Transaction? walletToCard(Transaction transact){
         
-        User user = this.getUser((int)transact.SenderId!);
+        if(transact.SenderType == true){
+            Business busi = this.getBusinessById((int)transact.SenderId!);
+            if(busi.Wallet >= transact.Amount){  
+                this.updateBWallet(busi.Id, -transact.Amount); 
+                Card card = this.GetCard((int)transact.CardId!);
+                this.updateCardBalance(card.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
+                return transact;
+            }
+        } else {
+            User user = this.getUser((int)transact.SenderId!);
+            if(user.Wallet >= transact.Amount){  
+                this.updateWallet(user.Id, -transact.Amount); 
+                Card card = this.GetCard((int)transact.CardId!);
         
-        if(user.Wallet >= transact.Amount){
-            
-            this.updateWallet(user.Id, -transact.Amount);
-            
-            Card card = this.GetCard((int)transact.CardId!);
-    
-            this.updateCardBalance(card.Id, transact.Amount);
-            _context.Transactions.Add(transact);
+                this.updateCardBalance(card.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
+                return transact;
+            }
         }
-
+        return null; 
     
-        _context.SaveChanges();
-
-        return transact;
+        
     }
 
 
-    public  Transaction acctToWallet(Transaction transact){
-        Account acct = this.getAccountById((int)transact.AccountId!);
+    public  Transaction? acctToWallet(Transaction transact){
+        Account? acct = this.getAccountById((int)transact.AccountId!);
+        if(acct != null && acct.Balance >= transact.Amount){
+            if(transact.RecpientType == true){
+                this.updateAccountBalance(acct.Id, -transact.Amount);
+                Business busi= this.getBusinessById((int) transact.RecipientId!);
+                this.updateBWallet(busi.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
 
-        if(acct.Balance >= transact.Amount){
-            this.updateAccountBalance(acct.Id, -transact.Amount);
-            User user = this.getUser((int) transact.RecipientId!);
-            this.updateWallet(user.Id, transact.Amount);
-            
+                return transact;
+            } else{
+                this.updateAccountBalance(acct.Id, -transact.Amount);
+                User user= this.getUser((int) transact.RecipientId!);
+                this.updateWallet(user.Id, transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
 
-            _context.Transactions.Add(transact);
-            _context.SaveChanges();
-
-            return transact;
+                return transact;
+            }
         }
+        
 
         return null;
     }
 
-    public Transaction cardToWallet(Transaction? transact){
+    public Transaction? cardToWallet(Transaction transact){
         Card? card = this.GetCard((int)transact.CardId!);
 
         if(card.Balance >= transact.Amount && transact != null){
-            User user = this.getUser((int) transact.RecipientId!);
-            this.updateWallet(user.Id, transact.Amount);
-            this.updateCardBalance(card.Id, -transact.Amount);
+            if(transact.RecpientType == true){
+                Business busi = this.getBusinessById((int) transact.RecipientId!);
+                this.updateBWallet(busi.Id, transact.Amount);
+                this.updateCardBalance(card.Id, -transact.Amount);
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
 
-            _context.Transactions.Add(transact);
-            _context.SaveChanges();
+                return transact;
+            } 
+            else {
+                User user = this.getUser((int) transact.RecipientId!);
+                this.updateWallet(user.Id, transact.Amount);
+                this.updateCardBalance(card.Id, -transact.Amount);
 
-            return transact;
+                _context.Transactions.Add(transact);
+                _context.SaveChanges();
+
+                return transact;
+            }
+            
         }
 
         return null;
     }
 
 //User to User transaction
-        public Transaction userToUser(Transaction transact){
-        User sender = this.getUser((int)transact.SenderId!);
-        User receiver = this.getUser((int)transact.RecipientId!);
-
-        if(sender.Wallet >= transact.Amount){
-            this.updateWallet(sender.Id, -transact.Amount);
-            this.updateWallet(receiver.Id, transact.Amount);
-            _context.Transactions.Add(transact);
+    public Transaction? userToUser(Transaction transact){
+        if(transact.RecpientType == true){
+            Business busReceiver = this.getBusinessById((int)transact.RecipientId!);
+            if(busReceiver != null && transact != null && transact.SenderType == true){
+                Business busi = this.getBusinessById((int)transact.SenderId!);
+                if(busi != null && busi.Wallet >= transact.Amount){
+                    this.updateBWallet(busi.Id, -transact.Amount);
+                    this.updateBWallet(busReceiver.Id, transact.Amount);
+                    _context.Transactions.Add(transact);
+                    _context.SaveChanges();
+                    return transact;
+                }
+            }
+            else{
+                User user = this.getUser((int)transact.SenderId);
+                if(user != null && busReceiver != null && transact != null && user.Wallet >= transact.Amount){
+                    this.updateWallet(user.Id, -transact.Amount);
+                    this.updateBWallet(busReceiver.Id, transact.Amount);
+                    _context.Transactions.Add(transact);
+                    _context.SaveChanges();
+                    return transact;
+                } 
+            }
+        } else {
+            User receiver = this.getUser((int)transact.RecipientId!);
+            if(receiver != null && transact != null && transact.SenderType == true){
+                Business busi = this.getBusinessById((int)transact.SenderId!);
+                if(busi != null && busi.Wallet >= transact.Amount){
+                    this.updateBWallet(busi.Id, -transact.Amount);
+                    this.updateWallet(receiver.Id, transact.Amount);
+                    _context.Transactions.Add(transact);
+                    _context.SaveChanges();
+                    return transact;
+                }   
+            }
+            else {
+                User user = this.getUser((int)transact.SenderId);
+                if(user != null && receiver != null && transact != null && user.Wallet >= transact.Amount){
+                    this.updateWallet(user.Id, -transact.Amount);
+                    this.updateWallet(receiver.Id, transact.Amount);
+                    _context.Transactions.Add(transact);
+                    _context.SaveChanges();
+                    return transact;
+                }
+            }
         }
-
-        _context.SaveChanges();
-
-        return transact;
+        return null;
     }
 
 
-    public User updateWallet(int id, decimal? ammount)
+    public User? updateWallet(int id, decimal? ammount)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
         if (user != null)
@@ -224,7 +294,7 @@ public class TransactionServices
         return _context.Users.FirstOrDefault(w => w.Id == id)!;
     }
 
-    public Card updateCardBalance(int cId, decimal? amt){
+    public Card? updateCardBalance(int cId, decimal? amt){
         var card = _context.Cards.FirstOrDefault(c => c.Id == cId);
         if (card != null)
         {
@@ -240,7 +310,7 @@ public class TransactionServices
     }
 
 
-    public Account updateAccountBalance(int id, decimal? bal)
+    public Account? updateAccountBalance(int id, decimal? bal)
     {
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
         if (account != null)
@@ -253,7 +323,7 @@ public class TransactionServices
 
 
     //get Account by accountid
-    public Account getAccountById(int id){
+    public Account? getAccountById(int id){
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
         if(account != null){
@@ -268,5 +338,18 @@ public class TransactionServices
 
     }
 
-    
-}
+    public Business? updateBWallet(int id, decimal? amt){
+        var user = _context.Businesses.FirstOrDefault(u => u.Id == id);
+        if (user != null)
+        {
+            user.Wallet += amt;
+            _context.SaveChanges();
+            return user;
+        }
+        return null;
+    }
+
+    public Business getBusinessById(int businessId){
+        return _context.Businesses.FirstOrDefault(w => w.Id == businessId)!;
+    }
+    }
