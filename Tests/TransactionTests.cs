@@ -1,6 +1,7 @@
+
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking; 
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using Xunit;
 using Services;
@@ -19,8 +20,8 @@ namespace Tests
         public void GetAllTransactions_ShouldReturnAllTransactions()
         {
             // Arrange
-        var _contextMock = new Mock<WizardingBankDbContext>();
-        var _transactionServices = new TransactionServices(_contextMock.Object);
+            var _contextMock = new Mock<WizardingBankDbContext>();
+            var _transactionServices = new TransactionServices(_contextMock.Object);
 
             var transactions = new List<Transaction>
             {
@@ -75,7 +76,7 @@ namespace Tests
             Assert.Equal(transactions.FirstOrDefault().Amount, result.FirstOrDefault().Amount);
             Assert.Equal(transactions.FirstOrDefault().Description, result.FirstOrDefault().Description);
         }
-    
+
         [Fact]
         public void GetTransactionByUserID_WhenTransactionDoesNotExist_ReturnsEmptyList()
         {
@@ -95,7 +96,7 @@ namespace Tests
             var service = new TransactionServices(mockContext.Object);
 
             // Act
-            var result =  service.GetTransactionsByUserId(userId);
+            var result = service.GetTransactionsByUserId(userId);
 
             // Assert
             Assert.Empty(result);
@@ -192,10 +193,10 @@ namespace Tests
                 new Transaction { Id = 2 },
                 new Transaction { Id = 3 }
             };
-            
+
             var mockDbContext = new Mock<WizardingBankDbContext>();
             mockDbContext.Setup(x => x.Transactions).Returns(MockDbSet2(transactions));
-            
+
             var transactionService = new TransactionServices(mockDbContext.Object);
 
             var transactionToDelete = new Transaction { Id = 2 };
@@ -211,7 +212,7 @@ namespace Tests
 
 
 
-[Fact]
+        [Fact]
         public void TestCardToWallet()
         {
             // Arrange
@@ -227,7 +228,7 @@ namespace Tests
                 new User { Id = 2, Email = "user2@test.com", Password = "Password2", Wallet = 200},
             };
 
-            var cards = new List <Card>
+            var cards = new List<Card>
             {
                 new Card {Id = 1, UserId = 1, CardNumber = 12345612345, Balance = 100, Cvv = 123},
                 new Card {Id = 2, UserId = 2, CardNumber = 23456712334, Balance = 200, Cvv = 456}
@@ -321,7 +322,7 @@ namespace Tests
 
             using (var context = new WizardingBankDbContext(options))
             {
-                
+
                 context.Transactions.AddRange(transactions);
                 context.Users.AddRange(users);
                 context.Businesses.AddRange(businesses);
@@ -340,10 +341,10 @@ namespace Tests
                 Assert.IsType<List<object>>(result);
                 Assert.Equal(2, result.Count);
             }
-            
+
         }
 
-    
+
         [Fact]
         public void GetLimitedTransactionsByUserId_ReturnsLimitedTransactions()
         {
@@ -418,7 +419,7 @@ namespace Tests
                 AccountId = account[0].Id,
                 Amount = 200}
             };
-            
+
             var _contextMock = new Mock<WizardingBankDbContext>();
 
             var transactionQueryable = transaction.AsQueryable();
@@ -443,11 +444,11 @@ namespace Tests
             userDbSetMock.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(userQueryable.GetEnumerator);
 
             var transactionServices = new TransactionServices(contextMock.Object);
-            
+
             contextMock.Setup(x => x.Accounts).Returns(accountDbSetMock.Object);
             contextMock.Setup(x => x.Users).Returns(userDbSetMock.Object);
             contextMock.Setup(x => x.Transactions).Returns(transactionsDbSetMock.Object);
-            
+
 
             // Act
             var result = transactionServices.walletToAccount(transaction[0]);
@@ -463,34 +464,31 @@ namespace Tests
             contextMock.Verify(x => x.Transactions.Add(transaction[0]), Times.Once);
         }
         [Fact]
-    public void Should_ReturnListOfUsers_When_GetUserByEmailCalled()
-    {
-        // Arrange
-        var email = "test@example.com";
-        var expectedUsers = new List<User> { new User { Id = 1, Email = email } };
-        var mockContext = new Mock<WizardingBankDbContext>();
-        var mockSet = new Mock<DbSet<User>>();
-        mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(expectedUsers.AsQueryable().Provider);
-        mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(expectedUsers.AsQueryable().Expression);
-        mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(expectedUsers.AsQueryable().ElementType);
-        mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(expectedUsers.GetEnumerator());
-        mockContext.Setup(m => m.Users).Returns(mockSet.Object);
-        var transactionServices = new TransactionServices(mockContext.Object);
+        public void Should_ReturnListOfUsers_When_GetUserByEmailCalled()
+        {
+            // Arrange
+            var email = "test@example.com";
+            var expectedUsers = new List<User> { new User { Id = 1, Email = email } };
+            var mockContext = new Mock<WizardingBankDbContext>();
+            var mockSet = new Mock<DbSet<User>>();
+            mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(expectedUsers.AsQueryable().Provider);
+            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(expectedUsers.AsQueryable().Expression);
+            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(expectedUsers.AsQueryable().ElementType);
+            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(expectedUsers.GetEnumerator());
+            mockContext.Setup(m => m.Users).Returns(mockSet.Object);
+            var transactionServices = new TransactionServices(mockContext.Object);
 
 
-        // Act
-        var result = transactionServices.getUserByEmail(email);
+            // Act
+            var result = transactionServices.getUserByEmail(email);
 
-        // Assert
-        Assert.Equal(expectedUsers, result);
-    }
-    
-    }
-
+            // Assert
+            Assert.Equal(expectedUsers, result);
         }
-    
 
-    
-    
+    }
+
+}
+
 
 
