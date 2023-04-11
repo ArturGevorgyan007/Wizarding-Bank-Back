@@ -178,7 +178,7 @@ public class TransactionServices
     public Transaction cardToWallet(Transaction? transact){
         Card? card = this.GetCard((int)transact.CardId!);
 
-        if(card.Balance >= transact.Amount){
+        if(card.Balance >= transact.Amount && transact != null){
             User user = this.getUser((int) transact.RecipientId!);
             this.updateWallet(user.Id, transact.Amount);
             this.updateCardBalance(card.Id, -transact.Amount);

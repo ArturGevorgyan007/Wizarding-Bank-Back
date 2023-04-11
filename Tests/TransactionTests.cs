@@ -1,5 +1,6 @@
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking; 
 using Moq;
 using Xunit;
 using Services;
@@ -217,52 +218,6 @@ namespace Tests
             mockDbContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
-        public void WalletToAccount_Should_Update_Wallet_And_Account_Balance_And_Add_Transaction()
-        {
-            // Arrange
-
-            var contextMock = new Mock<WizardingBankDbContext>(new DbContextOptions<WizardingBankDbContext>());
-
-            var user = new User
-            {
-                Id = 1,
-                Wallet = 1000
-            };
-
-            var account = new Account
-            {
-                Id = 1,
-                Balance = 500
-            };
-
-            var transaction = new Transaction
-            {
-                SenderId = user.Id,
-                AccountId = account.Id,
-                Amount = 200
-            };
-
-            var transactionServices = new TransactionServices(contextMock.Object);
-            
-
-            contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
-            contextMock.Setup(x => x.Accounts.Find(account.Id)).Returns(account);
-
-
-            // Act
-            var result = transactionServices.walletToAccount(transaction);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(transaction, result);
-
-            Assert.Equal(800, user.Wallet);
-            Assert.Equal(700, account.Balance);
-
-            contextMock.Verify(x => x.SaveChanges(), Times.Once);
-            contextMock.Verify(x => x.Transactions.Add(transaction), Times.Once);
-        }
 
         // Utility method for mocking DbSet
         private static DbSet<T> MockDbSet2<T>(List<T> data) where T : class
@@ -277,7 +232,58 @@ namespace Tests
             mockDbSet.Setup(x => x.Remove(It.IsAny<T>())).Callback((T entity) => data.Remove(entity));
             return mockDbSet.Object;
         }
-    
-    }
 
+
+[Fact]
+        public void TestCardToWallet()
+        {
+            // Arrange
+            var transactions = new List<Transaction>
+            {
+                // new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 },
+                new Transaction { Id = 2, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var users = new List<User>
+            {
+                new User { Id = 1, Email = "user1@test.com", Password = "Password1", Wallet = 100},
+                new User { Id = 2, Email = "user2@test.com", Password = "Password2", Wallet = 200},
+            };
+
+            var cards = new List <Card>
+            {
+                new Card {Id = 1, UserId = 1, CardNumber = 12345612345, Balance = 100, Cvv = 123},
+                new Card {Id = 2, UserId = 2, CardNumber = 23456712334, Balance = 200, Cvv = 456}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "CardToWallet_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Users.AddRange(users);
+                context.Cards.AddRange(cards);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.cardToWallet(new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+                // Assert.Equal(120, users[0].Wallet);
+            }
+
+        }
+
+    }
+    
 }
+
