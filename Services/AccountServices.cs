@@ -13,7 +13,7 @@ public class AccountServices{
     public Account createAccount(Account acct){
         _context.Add(acct);
         _context.SaveChanges();
-        _context.ChangeTracker.Clear();
+        //_context.ChangeTracker.Clear();
         return acct;
     }
 

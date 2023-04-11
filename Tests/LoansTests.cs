@@ -139,5 +139,104 @@ namespace Tests
             // Assert.Equal(DateTime.Now.AddMonths(-1), result[1].DateLoaned);
             // Assert.Equal(DateTime.Now.AddMonths(-1), result[1].LoanPaid);
         }
+        [Fact]
+        public void PayLoan_FullPayment_Success()
+        {
+            // Arrange
+            var business = new List<Business>
+            {
+                new Business{
+                Id = 1,
+                Wallet = 2000
+                },
+            };
+            var loans = new List<Loan>
+            {
+                loan
+            };
+            var loanQueryable = loans.AsQueryable();
+            var businessQueryable = business.AsQueryable();
+            var loansDbSetMock = new Mock<DbSet<Loan>>();
+            // loansDbSetMock.Setup(x => x.SingleOrDefault(It.IsAny<Func<Loan, bool>>()))
+            //     .Returns(loan);
+
+            var businessDbSetMock = new Mock<DbSet<Business>>();
+            var contextMock = new Mock<WizardingBankDbContext>();
+
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.Provider).Returns(businessQueryable.Provider);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.Expression).Returns(businessQueryable.Expression);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.ElementType).Returns(businessQueryable.ElementType);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.GetEnumerator()).Returns(businessQueryable.GetEnumerator);
+
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.Provider).Returns(loanQueryable.Provider);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.Expression).Returns(loanQueryable.Expression);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.ElementType).Returns(loanQueryable.ElementType);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.GetEnumerator()).Returns(loanQueryable.GetEnumerator);
+            contextMock.Setup(x => x.Loans).Returns(loansDbSetMock.Object);
+            contextMock.Setup(x => x.Businesses).Returns(businessDbSetMock.Object);
+            var controller = new LoanServices(contextMock.Object);
+
+            // Act
+            var result = controller.PayLoan(1, 1000, 1000);
+
+            // Assert
+            Assert.Equal(1200, result.AmountPaid);
+            Assert.Equal(DateTime.Today, result.LoanPaid.Value.Date);
+            Assert.Equal(1000, business[0].Wallet);
+            // loansDbSetMock.Verify(x => x.Update(loan), Times.Once);
+            // contextMock.Verify(x => x.SaveChanges(), Times.Once);
+        }
+
+        [Fact]
+        public void PayLoan_PartialPayment_Success()
+        {
+            // Arrange
+            var business = new List<Business>
+            {
+                new Business{
+                Id = 1,
+                Wallet = 2000
+                },
+            };
+            var loans = new List<Loan>
+            {
+                loan,
+            };
+            var loanQueryable = loans.AsQueryable();
+            var loansDbSetMock = new Mock<DbSet<Loan>>();
+
+            var businessQueryable = business.AsQueryable();
+            // loansDbSetMock.Setup(x => x.SingleOrDefault(It.IsAny<Func<Loan, bool>>()))
+            //     .Returns(loan);
+
+            var businessDbSetMock = new Mock<DbSet<Business>>();
+            var mockDbSet = new Mock<DbSet<Loan>>();
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.Provider).Returns(businessQueryable.Provider);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.Expression).Returns(businessQueryable.Expression);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.ElementType).Returns(businessQueryable.ElementType);
+            businessDbSetMock.As<IQueryable<Business>>().Setup(m => m.GetEnumerator()).Returns(businessQueryable.GetEnumerator);
+
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.Provider).Returns(loanQueryable.Provider);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.Expression).Returns(loanQueryable.Expression);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.ElementType).Returns(loanQueryable.ElementType);
+            loansDbSetMock.As<IQueryable<Loan>>().Setup(m => m.GetEnumerator()).Returns(loanQueryable.GetEnumerator);
+            // mockDbSet.Setup(x => x.SingleOrDefault(It.IsAny<Func<Loan, bool>>()))
+            //     .Returns(loan);
+            var contextMock = new Mock<WizardingBankDbContext>();
+            contextMock.Setup(x => x.Loans).Returns(loansDbSetMock.Object);
+            contextMock.Setup(x => x.Businesses).Returns(businessDbSetMock.Object);
+            var controller = new LoanServices(contextMock.Object);
+
+            // Act
+            var result = controller.PayLoan(1, 500, 1000);
+
+            // Assert
+            Assert.Equal(700, result.AmountPaid);
+            Assert.Equal(DateTime.Today.AddMonths(1), result.LoanPaid.Value.Date);
+            Assert.Equal(1000, business[0].Wallet);
+            // mockDbSet.Verify(x => x.Update(loan), Times.Once);
+            // contextMock.Verify(x => x.SaveChanges(), Times.Once);
+        }
     }
+
 }
