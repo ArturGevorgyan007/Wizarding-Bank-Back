@@ -108,6 +108,7 @@ namespace Tests
             // Arrange
             var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
                 .UseInMemoryDatabase(databaseName: "CreateTransaction_AddsTransactionToContext")
+
                 .Options;
 
             using (var context = new WizardingBankDbContext(options))
@@ -393,6 +394,365 @@ namespace Tests
 
         }
 
+        // Utility method for mocking DbSet
+        private static DbSet<T> MockDbSet2<T>(List<T> data) where T : class
+        {
+            var queryable = data.AsQueryable();
+            var mockDbSet = new Mock<DbSet<T>>();
+            mockDbSet.As<IQueryable<T>>().Setup(x => x.Provider).Returns(queryable.Provider);
+            mockDbSet.As<IQueryable<T>>().Setup(x => x.Expression).Returns(queryable.Expression);
+            mockDbSet.As<IQueryable<T>>().Setup(x => x.ElementType).Returns(queryable.ElementType);
+            mockDbSet.As<IQueryable<T>>().Setup(x => x.GetEnumerator()).Returns(() => queryable.GetEnumerator());
+            mockDbSet.Setup(x => x.Add(It.IsAny<T>())).Callback((T entity) => data.Add(entity));
+            mockDbSet.Setup(x => x.Remove(It.IsAny<T>())).Callback((T entity) => data.Remove(entity));
+            return mockDbSet.Object;
+        }
+        [Fact]
+
+        public void TestWalletToAccount()
+        {
+            // Arrange
+            var transactions = new List<Transaction>
+            {
+                // new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 },
+                new Transaction { Id = 2, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var users = new List<User>
+            {
+                new User { Id = 1, Email = "user1@test.com", Password = "Password1", Wallet = 100},
+                new User { Id = 2, Email = "user2@test.com", Password = "Password2", Wallet = 200},
+            };
+
+
+            var account = new List<Account>
+            {
+                new Account {Id = 1, UserId = 1, Balance = 100},
+                new Account {Id = 2, UserId = 2, Balance = 200}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "WalletToAccount_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Users.AddRange(users);
+
+                context.Accounts.AddRange(account);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+
+                var result = service.walletToAccount(new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", AccountId = 1, SenderType = false });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+
+                Assert.Equal(100, users[0].Wallet);
+            }
+
+        }
+
+
+        [Fact]
+
+        public void TestWalletToAccount_BusinessTransaction()
+        {
+            // Arrange
+            var transactions = new List<Transaction>
+            {
+                // new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 },
+                new Transaction { Id = 3, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var businesses = new List<Business>
+            {
+                new Business { Id = 1, Email = "user1@test.com", Password = "Password1", Wallet = 100, Bin = "1", Address = "123 st"},
+                new Business { Id = 2, Email = "user2@test.com", Password = "Password2", Wallet = 200, Bin = "1", Address = "321 st"},
+            };
+
+            var account = new List<Account>
+            {
+                new Account {Id = 4, UserId = 1, Balance = 100},
+                new Account {Id = 5, UserId = 2, Balance = 200}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "WalletToAccount_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Businesses.AddRange(businesses);
+                context.Accounts.AddRange(account);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.walletToAccount(new Transaction { Id = 305, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", AccountId = 4, SenderType = true });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+                Assert.Equal(100, businesses[0].Wallet);
+            }
+
+        }
+        [Fact]
+        public void TestWalletToCard_UserTest()
+        {
+            // Arrange
+            var transactions = new List<Transaction>
+            {
+                // new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 },
+                new Transaction { Id = 2, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var users = new List<User>
+            {
+                new User { Id = 1, Email = "user1@test.com", Password = "Password1", Wallet = 100},
+                new User { Id = 2, Email = "user2@test.com", Password = "Password2", Wallet = 200},
+            };
+
+            var cards = new List<Card>
+            {
+                new Card {Id = 1, UserId = 1, CardNumber = 12345612345, Balance = 100, Cvv = 123},
+                new Card {Id = 2, UserId = 2, CardNumber = 23456712334, Balance = 200, Cvv = 456}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "WalletToCard_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Users.AddRange(users);
+                context.Cards.AddRange(cards);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.walletToCard(new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+                // Assert.Equal(120, users[0].Wallet);
+            }
+
+        }
+
+        [Fact]
+        public void TestWalletToCard_BusinessTest()
+        {
+            // Arrange
+            var transactions = new List<Transaction>
+            {
+                // new Transaction { Id = 300, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1, RecipientId = 1, Description = "Transaction 1", CardId = 1 },
+                new Transaction { Id = 5, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var businesses = new List<Business>
+            {
+
+
+                new Business { Id = 3, Email = "user1@test.com", Password = "Password1", Wallet = 100, Address="524 Ave", Bin="31"},
+                new Business { Id = 7, Email = "user2@test.com", Password = "Password2", Wallet = 200, Address="123 C# Rd", Bin="304957-132908"},
+            };
+
+            var cards = new List<Card>
+            {
+                new Card {Id = 12, BusinessId = 3, CardNumber = 12345612345, Balance = 100, Cvv = 123},
+                new Card {Id = 13, BusinessId = 7, CardNumber = 23456712334, Balance = 200, Cvv = 456}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "WalletToCard_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Businesses.AddRange(businesses);
+                context.Cards.AddRange(cards);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+
+                var result = service.walletToCard(new Transaction { Id = 320, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 7, RecipientId = 1, Description = "Transaction 1", CardId = 1, SenderType = true });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+                // Assert.Equal(120, users[0].Wallet);
+            }
+
+        }
+
+
+        [Fact]
+        public void UserToUser_TransactionWithValidData_ReturnsTransaction_BusinessesToBusiness()
+        {
+            var transactions = new List<Transaction>
+            {
+                new Transaction { Id = 5, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var businesses = new List<Business>
+            {
+
+                new Business { Id = 3, Email = "user1@test.com", Password = "Password1", Wallet = 100, Address="524 Ave", Bin="31"},
+                new Business { Id = 7, Email = "user2@test.com", Password = "Password2", Wallet = 200, Address="123 C# Rd", Bin="304957-132908"},
+            };
+
+            var users = new List<User>
+            {
+                new User {Id = 122, Wallet = 143, Email = "ga@ga.com", Password = "Password" },
+                new User {Id = 133, Wallet = 234, Email = "test@testing.com", Password = "Password1"}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "UserToUser_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Businesses.AddRange(businesses);
+                context.Users.AddRange(users);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.userToUser(new Transaction { Id = 420, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 7, RecipientId = 3, Description = "Transaction 1", CardId = 1, SenderType = true, RecpientType = true });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+            }
+        }
+
+        [Fact]
+        public void UserToUser_TransactionWithValidData_ReturnsTransaction_BusinessToUser()
+        {
+            var transactions = new List<Transaction>
+            {
+                new Transaction { Id = 50, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var businesses = new List<Business>
+            {
+
+                new Business { Id = 13, Email = "user1@test.com", Password = "Password1", Wallet = 100, Address="524 Ave", Bin="31"},
+                new Business { Id = 17, Email = "user2@test.com", Password = "Password2", Wallet = 200, Address="123 C# Rd", Bin="304957-132908"},
+            };
+
+            var users = new List<User>
+            {
+                new User {Id = 1220, Wallet = 143, Email = "ga@ga.com", Password = "Password" },
+                new User {Id = 1330, Wallet = 234, Email = "test@testing.com", Password = "Password1"}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "UserToUser_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Businesses.AddRange(businesses);
+                context.Users.AddRange(users);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.userToUser(new Transaction { Id = 4200, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 1220, RecipientId = 13, Description = "Transaction 1", CardId = 1, SenderType = false, RecpientType = true });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+            }
+        }
+
+
+        [Fact]
+        public void UserToUser_TransactionWithValidData_ReturnsTransaction_UserToBusiness()
+        {
+            var transactions = new List<Transaction>
+            {
+                new Transaction { Id = 505, Amount = 75, CreatedAt = new DateTime(2022, 3, 2), SenderId = 2, RecipientId = 2, Description = "Transaction 2", CardId = 2 }
+            };
+
+            var businesses = new List<Business>
+            {
+
+                new Business { Id = 131, Email = "user1@test.com", Password = "Password1", Wallet = 100, Address="524 Ave", Bin="31"},
+                new Business { Id = 171, Email = "user2@test.com", Password = "Password2", Wallet = 200, Address="123 C# Rd", Bin="304957-132908"},
+            };
+
+            var users = new List<User>
+            {
+                new User {Id = 12201, Wallet = 143, Email = "ga@ga.com", Password = "Password" },
+                new User {Id = 13301, Wallet = 234, Email = "test@testing.com", Password = "Password1"}
+            };
+
+            var options = new DbContextOptionsBuilder<WizardingBankDbContext>()
+                .UseInMemoryDatabase(databaseName: "UserToBusiness_Database")
+                .Options;
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                context.Transactions.AddRange(transactions);
+                context.Businesses.AddRange(businesses);
+                context.Users.AddRange(users);
+                context.SaveChanges();
+            }
+
+            using (var context = new WizardingBankDbContext(options))
+            {
+                var service = new TransactionServices(context);
+
+                // Act
+                var result = service.userToUser(new Transaction { Id = 42000, Amount = 20, CreatedAt = new DateTime(2022, 3, 1), SenderId = 131, RecipientId = 13301, Description = "Transaction 1", CardId = 1, SenderType = true, RecpientType = false });
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<Transaction>(result);
+            }
+
+        }
+
         [Fact]
         public void WalletToAccount_Should_Update_Wallet_And_Account_Balance_And_Add_Transaction()
         {
@@ -488,3 +848,6 @@ namespace Tests
         }
     }
 }
+
+
+

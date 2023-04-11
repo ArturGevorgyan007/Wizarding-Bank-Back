@@ -2,29 +2,36 @@ using DataAccess.Entities;
 
 namespace Services;
 
-public class AccountServices{
+public class AccountServices
+{
 
     private readonly WizardingBankDbContext _context;
 
-    public AccountServices(WizardingBankDbContext context){
+    public AccountServices(WizardingBankDbContext context)
+    {
         _context = context;
     }
 
-    public Account createAccount(Account acct){
+    public Account createAccount(Account acct)
+    {
         _context.Add(acct);
         _context.SaveChanges();
         //_context.ChangeTracker.Clear();
         return acct;
     }
 
-    public List<Account> getAllAccounts(){
+    public List<Account> getAllAccounts()
+    {
         return _context.Accounts.ToList();
     }
 
-    public List<Account> getAccounts(int Id){
+    public List<Account> getAccounts(int Id)
+    {
         List<Account> acctL = new();
-        foreach(Account a in _context.Accounts.ToList()){
-            if(a.BusinessId == Id || a.UserId == Id){
+        foreach (Account a in _context.Accounts.ToList())
+        {
+            if (a.BusinessId == Id || a.UserId == Id)
+            {
                 acctL.Add(a);
             }
         }
@@ -32,7 +39,8 @@ public class AccountServices{
         return acctL;
     }
 
-    public Account updateAccount(Account acct){
+    public Account updateAccount(Account acct)
+    {
         _context.Update(acct);
         _context.Accounts.ToList();
         _context.SaveChanges();
@@ -53,30 +61,38 @@ public class AccountServices{
 
 
     //get Account by accountid
-    public Account getAccountById(int id){
+    public Account getAccountById(int id)
+    {
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
-        if(account != null){
+        if (account != null)
+        {
             return account;
         }
         return null;
     }
 
-    public bool deleteAccount(int acctId, int Id){
+    public bool deleteAccount(int acctId, int Id)
+    {
         List<Account> acctl = getAccounts(Id);
         Account dacct = new();
-        foreach(Account a in acctl){
-            if(a.Id == acctId){ 
-                dacct = a;}
+        foreach (Account a in acctl)
+        {
+            if (a.Id == acctId)
+            {
+                dacct = a;
+            }
         }
         _context.Remove(dacct);
-        if(_context.SaveChanges() > 0){
+        if (_context.SaveChanges() > 0)
+        {
             return true;
         }
 
         return false;
-        
+
     }
+
 
 
 }

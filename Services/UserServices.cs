@@ -16,7 +16,7 @@ public class UserServices
         _context.Add(a);
 
         _context.SaveChanges();
-        _context.ChangeTracker.Clear();
+        // _context.ChangeTracker.Clear();
         return a;
     }
 
@@ -28,16 +28,6 @@ public class UserServices
     public User GetUser(int id)
     {
         return _context.Users.FirstOrDefault(w => w.Id == id)!;
-
-    }
-    public List<User> GetUser(string username, string password)
-    {
-        return (List<User>)_context.Users.Where(w => w.Username == username && w.Password == password).ToList();
-
-    }
-    public List<User> GetUser(string email)
-    {
-        return (List<User>)_context.Users.Where(w => w.Email == email).ToList();
 
     }
 
@@ -55,6 +45,18 @@ public class UserServices
         _context.SaveChanges();
         return u;
     }
+
+    public List<User> GetUser(string email)
+    {
+        return (List<User>)_context.Users.Where(w => w.Email == email).ToList();
+
+    }
+
+    //   public List<User> GetUser(string username, string password)
+    // {
+    //     return (List<User>)_context.Users.Where(w => w.Username == username && w.Password == password).ToList();
+
+    // }
 
     public User UpdateWallet(int id, decimal? ammount)
     {
