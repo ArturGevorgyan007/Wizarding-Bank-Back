@@ -49,4 +49,15 @@ public class BusinessServices
         List<Business> Found = (List<Business>)_context.Businesses.Where(w => w.Email == email).ToList();
         return Found[0];
     }
+
+    public Business? updateBWallet(int id, decimal? amt){
+        var user = _context.Businesses.FirstOrDefault(u => u.Id == id);
+        if (user != null)
+        {
+            user.Wallet += amt;
+            _context.SaveChanges();
+            return user;
+        }
+        return null;
+    }
 }
