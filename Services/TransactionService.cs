@@ -119,6 +119,7 @@ public class TransactionServices
         return transact;
     }
 
+
     public Transaction? walletToAccount(Transaction transact)
     {
         Account? account = this.getAccountById((int)transact.AccountId!);
@@ -132,6 +133,7 @@ public class TransactionServices
                 _context.Transactions.Add(transact);
                 _context.SaveChanges();
                 return transact;
+
             }
         }
         else
@@ -165,6 +167,7 @@ public class TransactionServices
                 _context.SaveChanges();
                 return transact;
             }
+
         }
         else
         {
@@ -181,14 +184,13 @@ public class TransactionServices
             }
         }
         return null;
-
-
     }
 
 
     public Transaction? acctToWallet(Transaction transact)
     {
         Account? acct = this.getAccountById((int)transact.AccountId!);
+
         if (acct != null && acct.Balance >= transact.Amount)
         {
             if (transact.RecpientType == true)
@@ -200,6 +202,7 @@ public class TransactionServices
                 _context.SaveChanges();
 
                 return transact;
+
             }
             else
             {
@@ -212,10 +215,9 @@ public class TransactionServices
                 return transact;
             }
         }
-
-
         return null;
     }
+
 
 
     public Transaction? cardToWallet(Transaction transact)
@@ -242,14 +244,13 @@ public class TransactionServices
 
                 _context.Transactions.Add(transact);
                 _context.SaveChanges();
-
                 return transact;
-            }
-
+       }
         }
 
         return null;
     }
+
 
     //User to User transaction
     public Transaction? userToUser(Transaction transact)
@@ -269,6 +270,7 @@ public class TransactionServices
                     return transact;
                 }
             }
+
             else
             {
                 User user = this.getUser((int)transact.SenderId);
@@ -279,6 +281,7 @@ public class TransactionServices
                     _context.Transactions.Add(transact);
                     _context.SaveChanges();
                     return transact;
+
                 }
             }
         }
@@ -295,6 +298,7 @@ public class TransactionServices
                     _context.Transactions.Add(transact);
                     _context.SaveChanges();
                     return transact;
+
                 }
             }
             else
@@ -324,7 +328,6 @@ public class TransactionServices
         }
         return null;
     }
-
     public User getUser(int id)
     {
         return _context.Users.FirstOrDefault(w => w.Id == id)!;
@@ -362,6 +365,7 @@ public class TransactionServices
 
     //get Account by accountid
 
+
     public Account? getAccountById(int id)
     {
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
@@ -379,6 +383,7 @@ public class TransactionServices
 
     }
 
+
     public Business? updateBWallet(int id, decimal? amt)
     {
         var user = _context.Businesses.FirstOrDefault(u => u.Id == id);
@@ -391,9 +396,9 @@ public class TransactionServices
         return null;
     }
 
+
     public Business getBusinessById(int businessId)
     {
         return _context.Businesses.FirstOrDefault(w => w.Id == businessId)!;
     }
 }
-

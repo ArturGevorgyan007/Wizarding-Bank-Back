@@ -65,5 +65,14 @@ namespace API.Controllers
             return Ok(_busService.GetBusiness(email).BusinessType);
         }
 
+        [HttpGet]
+        [Route("wallet/update/{id:int}/{amt:int}")]
+        public Business? updateWallet(int id, int amt)
+        {
+
+            return _busService.updateBWallet(id, amt);
+
+        }
+
     }
 }
