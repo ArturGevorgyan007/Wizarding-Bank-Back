@@ -35,14 +35,14 @@ namespace API.Controllers
             return Ok(user[0].Id);
 
         }
-        [HttpGet]
-        [Route("user/{usr}/{pas}")]
-        public List<User> GetById(string usr, string pas)
-        {
+        // [HttpGet]
+        // [Route("user/{usr}/{pas}")]
+        // public List<User> GetById(string usr, string pas)
+        // {
 
-            return _service.GetUser(usr, pas);
+        //     return _service.GetUser(usr, pas);
 
-        }
+        // }
 
         [HttpGet]
         [Route("users")]
@@ -84,13 +84,5 @@ namespace API.Controllers
         {
             return _service.DeleteUser(u);
         }
-
-
-
-
-
     }
-
-
-
 }
