@@ -44,7 +44,8 @@ public class TransactionServices
                          RecipientEmail = (transaction.RecpientType == true) ?
                                          _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
                                          _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
-                         transaction.Description
+                         transaction.Description,
+                         transaction.Status
                      };
 
         var results = result.Take(10).ToList();
@@ -79,7 +80,8 @@ public class TransactionServices
                          RecipientEmail = (transaction.RecpientType == true) ?
                                          _context.Businesses.FirstOrDefault(b => b.Id == transaction.RecipientId).Email :
                                          _context.Users.FirstOrDefault(u => u.Id == transaction.RecipientId).Email,
-                         transaction.Description
+                         transaction.Description,
+                         transaction.Status
                      };
 
         foreach (Object obj in result)
