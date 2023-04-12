@@ -13,8 +13,6 @@ namespace Tests
         private Mock<WizardingBankDbContext> _contextMock;
         private TransactionServices _transactionServices;
 
-
-
         [Fact]
         public void GetAllTransactions_ShouldReturnAllTransactions()
         {
@@ -42,7 +40,6 @@ namespace Tests
             Assert.Equal(transactions.Count, result.Count);
             Assert.Equal(transactions[0].Id, result[0].Id);
         }
-
 
         [Fact]
         public void GetTransactionByUserID_ReturnsTransactions_WhenTransactionsExist()
@@ -100,7 +97,6 @@ namespace Tests
             // Assert
             Assert.Empty(result);
         }
-
 
         [Fact]
         public void CreateTransaction_WhenCalled_AddsTransactionToContext()
@@ -183,6 +179,7 @@ namespace Tests
             mockDbSet.Setup(x => x.Remove(It.IsAny<T>())).Callback((T entity) => data.Remove(entity));
             return mockDbSet.Object;
         }
+
         [Fact]
         public void DeleteTransaction_DeletesTransactionFromDatabase()
         {
@@ -208,9 +205,6 @@ namespace Tests
             Assert.DoesNotContain(transactionToDelete, transactions);
             mockDbContext.Verify(x => x.SaveChanges(), Times.Once);
         }
-
-
-
 
         [Fact]
         public void TestCardToWallet()
@@ -261,7 +255,6 @@ namespace Tests
 
         }
 
-
         [Fact]
         public void GetTransactionsByUserId_ShouldReturnTransactionsByUserId()
         {
@@ -294,6 +287,7 @@ namespace Tests
             Assert.Equal(3, result.Count);
             Assert.True(result.All(t => t.SenderId == userId || t.RecipientId == userId));
         }
+
         [Fact]
         public void GetTransactionsWithEmails_Should_ReturnListOfObjects()
         {
@@ -343,7 +337,6 @@ namespace Tests
             }
 
         }
-
 
         [Fact]
         public void GetLimitedTransactionsByUserId_ReturnsLimitedTransactions()
@@ -395,7 +388,7 @@ namespace Tests
         }
 
         // Utility method for mocking DbSet
-        private static DbSet<T> MockDbSet2<T>(List<T> data) where T : class
+        private static DbSet<T> MockDbSet<T>(List<T> data) where T : class
         {
             var queryable = data.AsQueryable();
             var mockDbSet = new Mock<DbSet<T>>();
@@ -407,8 +400,8 @@ namespace Tests
             mockDbSet.Setup(x => x.Remove(It.IsAny<T>())).Callback((T entity) => data.Remove(entity));
             return mockDbSet.Object;
         }
+        
         [Fact]
-
         public void TestWalletToAccount()
         {
             // Arrange
@@ -461,9 +454,7 @@ namespace Tests
 
         }
 
-
         [Fact]
-
         public void TestWalletToAccount_BusinessTransaction()
         {
             // Arrange
@@ -511,6 +502,7 @@ namespace Tests
             }
 
         }
+
         [Fact]
         public void TestWalletToCard_UserTest()
         {
@@ -557,7 +549,6 @@ namespace Tests
                 Assert.IsType<Transaction>(result);
                 // Assert.Equal(120, users[0].Wallet);
             }
-
         }
 
         [Fact]
@@ -611,7 +602,6 @@ namespace Tests
             }
 
         }
-
 
         [Fact]
         public void UserToUser_TransactionWithValidData_ReturnsTransaction_BusinessesToBusiness()
@@ -704,7 +694,6 @@ namespace Tests
                 Assert.IsType<Transaction>(result);
             }
         }
-
 
         [Fact]
         public void UserToUser_TransactionWithValidData_ReturnsTransaction_UserToBusiness()
@@ -822,6 +811,7 @@ namespace Tests
             contextMock.Verify(x => x.SaveChanges(), Times.Once);
             contextMock.Verify(x => x.Transactions.Add(transaction[0]), Times.Once);
         }
+
         [Fact]
         public void Should_ReturnListOfUsers_When_GetUserByEmailCalled()
         {
@@ -837,8 +827,6 @@ namespace Tests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
             var transactionServices = new TransactionServices(mockContext.Object);
     
-
-
             // Act
             var result = transactionServices.getUserByEmail(email);
             // Act
