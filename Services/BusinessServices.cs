@@ -44,10 +44,13 @@ public class BusinessServices
         _context.SaveChanges();
         return bus;
     }
-    public Business GetBusiness(string email)
+    public Business? GetBusiness(string email)
     {
-        List<Business> Found = (List<Business>)_context.Businesses.Where(w => w.Email == email).ToList();
-        return Found[0];
+        var busi = _context.Businesses.FirstOrDefault(u => u.Email== email);
+        if( busi != null){
+            return busi;
+        }
+        return null;
     }
 
     public Business? updateBWallet(int id, decimal? amt){

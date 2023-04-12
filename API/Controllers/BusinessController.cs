@@ -51,11 +51,12 @@ namespace API.Controllers
         {
             return _busService.DeleteBusiness(bus);
         }
+        
         [HttpGet]
         [Route("busId/{email}")]
-        public IActionResult GetBusinessByEmail(string email)
+        public Business? GetBusinessByEmail(string email)
         {
-            return Ok(_busService.GetBusiness(email).Id);
+            return _busService.GetBusiness(email);
         }
 
         [HttpGet]

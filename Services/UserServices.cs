@@ -58,7 +58,7 @@ public class UserServices
 
     // }
 
-    public User UpdateWallet(int id, decimal? ammount)
+    public User? UpdateWallet(int id, decimal? ammount)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
         if (user != null)
