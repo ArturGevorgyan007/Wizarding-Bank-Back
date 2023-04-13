@@ -31,9 +31,9 @@ namespace API.Controllers
         {
 
             Console.WriteLine("Working here");
-            List<User> user = _service.GetUser(email);
             try
             {
+                List<User> user = _service.GetUser(email);
                 return user[0].Id;
             }
             catch (Exception)
