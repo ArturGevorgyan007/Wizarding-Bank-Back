@@ -29,7 +29,8 @@ namespace API.Controllers
         }
 
         [HttpGet("bus/{businessId:int}")]
-        public List<Business> getBusinessById(int businessId){
+        public List<Business> getBusinessById(int businessId)
+        {
             return _busService.getBusinessById(businessId);
         }
 
@@ -51,18 +52,25 @@ namespace API.Controllers
         {
             return _busService.DeleteBusiness(bus);
         }
-        
+
         [HttpGet]
         [Route("busId/{email}")]
-        public Business? GetBusinessByEmail(string email)
+        public int? GetBusinessByEmail(string email)
         {
-            return _busService.GetBusiness(email);
+            try
+            {
+                return _busService.GetBusiness(email).Id;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         [HttpGet]
         [Route("busType/{email}")]
         public IActionResult GetBusinessTypeByEmail(string email)
-        { 
+        {
             return Ok(_busService.GetBusiness(email).BusinessType);
         }
 
