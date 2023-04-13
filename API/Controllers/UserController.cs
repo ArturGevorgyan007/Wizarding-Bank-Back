@@ -27,12 +27,19 @@ namespace API.Controllers
         }
         [HttpGet]
         [Route("user/byEmail/{email}")]
-        public IActionResult GetByEmail(string email)
+        public int? GetByEmail(string email)
         {
 
             Console.WriteLine("Working here");
             List<User> user = _service.GetUser(email);
-            return Ok(user[0].Id);
+            try
+            {
+                return user[0].Id;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
         }
         // [HttpGet]
