@@ -3,7 +3,6 @@
 
 name: Build and deploy ASP.Net Core app to Azure Web App - wizardingbankapi
 
-
 on:
   push:
     branches:
