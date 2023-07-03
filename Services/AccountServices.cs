@@ -49,6 +49,14 @@ public class AccountServices
 
     public Account updateAccountBalance(int id, decimal? bal)
     {
+        // var account1 = from x in  _context.Accounts
+        // where x.Id ==id
+        // select x; 
+        //_context.Accounts.Where(x=>x.)
+
+        // var accounts = _context.Accounts.Where(a=>a.Balance > 50).ToList();
+        // var accounts1 = _context.Accounts.ToList().Where(a=>a.Balance > 50);
+
         var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
         if (account != null)
         {
