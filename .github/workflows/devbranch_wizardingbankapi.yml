@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'wizardingbankapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_026C4878C4B04EDDA94F098952350C39 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F4C09F504CC49CA95B34911678121ED }}
           package: .
