@@ -35,6 +35,8 @@ namespace API.Controllers
         }
 
         [HttpPost]
+
+        [Route("create")]
         public List<Business> Create(Business bus)
         {
             _busService.CreateBusiness(bus);
